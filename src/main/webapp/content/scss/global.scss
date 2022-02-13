@@ -43,6 +43,14 @@ a:hover {
   color: $dropdown-link-hover-color;
 }
 
+html {
+  background-color: white
+}
+
+.body-container {
+  width: 100%;
+  height: 657px;
+}
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
@@ -73,6 +81,8 @@ Generic styles
   padding: 1.5%;
   margin-top: 20px;
   border: none;
+  background: url('../../content/images/dog_photo.svg') no-repeat;
+
 }
 
 .error {
@@ -103,7 +113,8 @@ Generic styles
 }
 
 .footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  // border-top: 1px solid rgba(0, 0, 0, 0.125);
+  background-color: white;
 }
 
 .hand,

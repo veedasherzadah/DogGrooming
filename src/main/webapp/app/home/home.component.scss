@@ -2,22 +2,52 @@
 Main page styles
 ========================================================================== */
 
+
 .hipster {
   display: inline-block;
-  width: 347px;
-  height: 497px;
-  background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
+  // width: 347px;
+  // height: 497px;
+  background: url('../../content/images/dog_photo.svg') no-repeat center top;
   background-size: contain;
 }
 
-/* wait autoprefixer update to allow simple generation of high pixel density media query */
-@media only screen and (-webkit-min-device-pixel-ratio: 2),
-  only screen and (-moz-min-device-pixel-ratio: 2),
-  only screen and (-o-min-device-pixel-ratio: 2/1),
-  only screen and (min-resolution: 192dpi),
-  only screen and (min-resolution: 2dppx) {
-  .hipster {
-    background: url('../../content/images/jhipster_family_member_0.svg') no-repeat center top;
-    background-size: contain;
-  }
+.home-page {
+  background: url('../../content/images/dog_photo.svg') no-repeat;
+  height: 100%;
 }
+
+.body {
+  position: absolute;
+  text-align: center;
+  top: 30%;
+  width: 100%;
+}
+
+h1 {
+  font-weight:500;
+  font-size:72px;
+  line-height: 84.38px;
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin-bottom:0;
+}
+
+h6 {
+  font-size:24px;
+  line-height: 24px;
+  color: #3A3A3A;
+  font-weight:300;
+  margin-bottom:95px;
+}
+
+
+// /* wait autoprefixer update to allow simple generation of high pixel density media query */
+// @media only screen and (-webkit-min-device-pixel-ratio: 2),
+//   only screen and (-moz-min-device-pixel-ratio: 2),
+//   only screen and (-o-min-device-pixel-ratio: 2/1),
+//   only screen and (min-resolution: 192dpi),
+//   only screen and (min-resolution: 2dppx) {
+//   .hipster {
+//     background: url('../../content/images/dog_photo.svg') no-repeat center top;
+//     background-size: contain;
+//   }
+// }
