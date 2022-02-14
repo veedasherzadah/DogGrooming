@@ -26,14 +26,17 @@
                   </ul>
               </div>
               <div class="col-9">
-                One of three columns
+                <jhi-modal-details-form #formComponent></jhi-modal-details-form>
               </div>
             </div>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" (click)="onCloseHandled()" >Close</button>
+        <button type="submit" class="modal-button continue-button" (click)="formComponent.continueClicked()">Continue</button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- <first-component (click)="mySecondComponent.myFunction()"></first-component>
+<second-component #mySecondComponent></second-component> -->

@@ -1,1 +1,31 @@
-<p>modal-details-form works!</p>
+<div class="user-details">
+  <h2>Your Details</h2>
+  {{continue}}
+  <form [formGroup]="formGroup" (validSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col">
+        <input formControlName="firstName" required type="text" class="form-control" placeholder="First Name" aria-label="first-name">
+        <input formControlName="phone" required type="phone" class="form-control" placeholder="Mobile Phone" aria-label="phone">
+      </div>
+      <div class="col">
+        <input formControlName="lastName" required type="text" class="form-control" placeholder="Last Name" aria-label="last-name">
+        <input formControlName="email" required type="email" class="form-control" placeholder="Email address" aria-label="email-address">
+      </div>
+    </div>
+
+    <h2>Dog's Details</h2>
+    <div class="row">
+      <div class="col">
+        <input id="dog-name" required type="text" class="form-control" placeholder="Name" aria-label="dog-name">
+      </div>
+      <div class="col">
+        <select id="dog-select" name="dog-select" required>
+          <option value="" disabled selected>Breed</option>
+          <option>Golden</option>
+          <option>Poodle</option>
+          <option>German Shep</option>
+      </select> 
+      </div>
+    </div>
+    </form>
+  </div>
