@@ -11,3 +11,4 @@ Firefox ESR
 not dead
 not IE 9-11 # Angular support for IE 9-10 has been deprecated and will be removed as of Angular v11. To opt-in, remove the 'not' prefix on this line.
 not ios_saf 15.2-15.3
+not safari 15.2-15.3
