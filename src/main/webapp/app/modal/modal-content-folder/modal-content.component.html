@@ -26,13 +26,15 @@
                   </ul>
               </div>
               <div class="col-9">
-                <jhi-modal-details-form #formComponent></jhi-modal-details-form>
+                <jhi-modal-details-form #formComponent (getButtonDisabled)="setButtonClicked($event)"></jhi-modal-details-form>
               </div>
             </div>
           </div>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="modal-button continue-button" (click)="formComponent.continueClicked()">Continue</button>
+        <button type="submit" class="modal-button continue-button" (click)="formComponent.continueClicked()" 
+         [disabled]="buttonDisabled">Continue
+        </button>
       </div>
     </div>
   </div>
