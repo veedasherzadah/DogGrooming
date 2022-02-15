@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {NgbDateStruct, NgbCalendar} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @Component({
@@ -11,9 +13,13 @@ export class ModalDetailsFormComponent{
   // @Input() continue; 
   userDetailsFormGroup!: FormGroup;
   servicesFormGroup!: FormGroup;
+  calendarFormGroup!: FormGroup;
+  model!: NgbDateStruct;
+  date!: {year: number, month: number};
+
   showErrors = false;
-  pages = ["userDetails", "services"]
-  page = this.pages[1];
+  pages = ["userDetails", "services", "calendar"]
+  page = this.pages[2];
   @Output() getButtonDisabled = new EventEmitter<boolean>();
 
   Services: Array<any> = [
@@ -22,7 +28,7 @@ export class ModalDetailsFormComponent{
     { label: 'Bath and Cut', bio: '$60.00 - 1 Hour', value: 'bathCut' },
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private calendar: NgbCalendar) {
    this.createForm();
  }
 
@@ -55,6 +61,9 @@ export class ModalDetailsFormComponent{
 
    this.servicesFormGroup = this.fb.group({
     checkArray: this.fb.array([])
+   });
+
+   this.calendarFormGroup = this.fb.group({
    });
  }
 

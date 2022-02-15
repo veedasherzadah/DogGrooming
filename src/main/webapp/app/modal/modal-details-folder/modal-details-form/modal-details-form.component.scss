@@ -62,3 +62,16 @@ option {
 #services button:focus {
     border: 1px solid #CF7A00;
 }
+
+ngb-datepicker {
+    display: block !important;
+}
+
+//ngb-datepicker  works but i cant get these bottom two to change size
+.ngb-dp-months {
+    display: block !important;
+}
+
+.ngb-dp-weekday {
+    width: 20rem !important;
+}

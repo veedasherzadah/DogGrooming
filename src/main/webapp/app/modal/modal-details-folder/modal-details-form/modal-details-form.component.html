@@ -71,19 +71,9 @@
     </form>
   </div>
 
-
-
   <div id="services" *ngIf="page===pages[1]">
     <h2>Select one service</h2>
-
-
-    <!-- <form [formGroup]="servicesFormGroup">
-      <input type="radio" value='Male' formControlName="service" >Male
-      <input type="radio" value='Female' formControlName="service">Female
-    </form> -->
-
     <form [formGroup]="servicesFormGroup" novalidate>
-
       <div *ngFor="let service of Services; let i=index">
         <button class="form-check">
           <input class="form-check-input" type="checkbox" [value]="service.value" (change)="onCheckboxChange($event)">
@@ -95,6 +85,15 @@
       </div>
       </form>
     </div>
-  
+
+    <div id="calendar" *ngIf="page===pages[2]">
+      <h2>Select a date and time</h2>
+      <form [formGroup]="calendarFormGroup" novalidate>
+        <ngb-datepicker #dp (navigate)="date = $event.next"></ngb-datepicker>
+
+        </form>
+      </div>
+
+    
   
   
