@@ -35,6 +35,7 @@ import { ItemCountComponent } from './pagination/item-count.component';
     SortByDirective,
     SortDirective,
     ItemCountComponent,
+    // ModalContentComponent
   ],
 })
 export class SharedModule {}

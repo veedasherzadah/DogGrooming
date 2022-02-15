@@ -1,0 +1,42 @@
+<button type="button" class="modal-button" (click)="openModal()">Book Appointment</button>
+<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Model Title</h4>
+        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+            <div class="row">
+              <div class="col-3">
+                <ul class="nav flex-column left-navigation">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Enter Details</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#" aria-disabled="true">Select Service</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link disabled" href="#" aria-disabled="true">Date and Time</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li> -->
+                  </ul>
+              </div>
+              <div class="col-9">
+                <jhi-modal-details-form #formComponent></jhi-modal-details-form>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="modal-button continue-button" (click)="formComponent.continueClicked()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <first-component (click)="mySecondComponent.myFunction()"></first-component>
+<second-component #mySecondComponent></second-component> -->
