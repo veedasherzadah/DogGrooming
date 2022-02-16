@@ -74,15 +74,29 @@
   <div id="services" *ngIf="page===pages[1]">
     <h2>Select one service</h2>
     <form [formGroup]="servicesFormGroup" novalidate>
-      <div *ngFor="let service of Services; let i=index">
-        <button class="form-check">
-          <input class="form-check-input" type="checkbox" [value]="service.value" (change)="onCheckboxChange($event)">
-          <label class="form-check-label" for="flexCheckDefault">
-            {{service.label}}
-          </label>
-          <div>{{service.bio}}</div>
-        </button>
-    </div>
+      <div class="service-buttons">
+        <div *ngFor="let service of Services; let i=index" class="service-button">
+          <!-- <span class="form-check"> -->
+            <!-- <input class="form-check-input" type="checkbox" [value]="service.value" (change)="onCheckboxChange($event)"> -->
+
+            <label>
+              <input type="radio" formControlName="service" value={{service.value}}>
+                <span>
+                  {{service.label}}
+                  <div>{{service.bio}}</div>
+                </span>
+            </label>
+
+            <!-- <input class="form-check-input" type="radio" formControlName="service" value={{service.value}} > -->
+            <!-- <label class="form-check-label" for="flexCheckDefault">
+              {{service.label}}
+            </label> -->
+              <!-- <span class="form-check-label">{{service.label}}</span>
+              <div>{{service.bio}}</div> -->
+ 
+          <!-- </span> -->
+        </div>
+      </div>
     </form>
   </div>
 
@@ -93,21 +107,11 @@
       <h3>Morning</h3>
       <div class="time-buttons">
         <div *ngFor="let time of MorningButtons; let i=index" class="button-div">
-          <!-- <input type="radio" class="time-button" id="amButton{{i}}" name="time"/>
-          <label class="form-check-label" for="amButton{{i}}">
-            {{time.name}}
-          </label> -->
-
           <label class="time-button">
             <input type="radio" value={{time.name}} formControlName="time">
               <span>{{time.name}}</span>
           </label>
-
-
         </div>
-        <!-- <div *ngFor="let time of MorningButtons; let i=index" class="button-div">
-          <button class="time-button" id="amButton{{i}}" (click)="setTime(time.name, 'amButton'+i)"> {{time.name}} </button>
-        </div> -->
       </div>
 
       <h3>Afternoon</h3>
@@ -118,22 +122,6 @@
               <span>{{time.name}}</span>
           </label>
         </div>
-        <!-- <div *ngFor="let time of AfternoonButtons; let i=index" class="button-div">
-          <button class="time-button" id="pmButton{{i}}" (click)="setTime(time.name, 'pmButton'+i)"> {{time.name}} </button>
-        </div> -->
       </div>
       </form>
     </div>
-
-    <!-- <form>
-      <input type="radio" name="radio" id="radio1" value="radio1" />
-      <label for="radio1"></label>
-      <input type="radio" name="radio" id="radio2" value="radio2" />
-      <label for="radio2"></label>
-    </form> -->
-  
-    <!-- <button mat-button [disabled]="form.get(controlName).disabled"
-    (click)="form.get(controlName).setValue("one");
-             form.get(controlName).markAsTouched()">
-Create
-</button> -->
