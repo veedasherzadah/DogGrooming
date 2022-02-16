@@ -57,9 +57,14 @@
       <div class="col">
         <select formControlName="dogSelect" name="dog-select" required>
           <option value="" disabled selected>Breed</option>
-          <option>Golden</option>
+          <option>Labrador Retriever</option>
+          <option>Golden Retriever</option>
+          <option>French Bulldog</option>
+          <option>Pitbull</option>
           <option>Poodle</option>
-          <option>German Shep</option>
+          <option>Beagle</option>
+          <option>Rottweiler</option>
+          <option>Mix</option>
       </select> 
       <div *ngIf="userDetailsFormGroup.controls['dogSelect'].invalid && (userDetailsFormGroup.controls['dogSelect'].dirty || userDetailsFormGroup.controls['dogSelect'].touched)" class="alert alert-danger">
         <div *ngIf="userDetailsFormGroup.controls['dogSelect'].errors?.required">
@@ -103,7 +108,11 @@
   <div id="calendar" *ngIf="page===pages[2]">
     <h2>Select a date and time</h2>
     <form [formGroup]="calendarFormGroup" novalidate>
+      <div class="calendar">
+
       <ngb-datepicker #dp formControlName="calendar" [minDate]="minDate" (navigate)="date = $event.next"></ngb-datepicker>
+    </div>
+
       <h3>Morning</h3>
       <div class="time-buttons">
         <div *ngFor="let time of MorningButtons; let i=index" class="button-div">
@@ -125,3 +134,8 @@
       </div>
       </form>
     </div>
+<!-- 
+    <div *ngIf="page==='submitted'">
+      <h1>Thank you for booking an appointment with us,</h1>
+      <h2>See you soon!</h2>
+    </div> -->

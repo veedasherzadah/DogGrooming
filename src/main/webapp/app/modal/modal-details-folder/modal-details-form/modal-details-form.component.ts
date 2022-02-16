@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import {NgbDateStruct, NgbCalendar, NgbDate} from '@ng-bootstrap/ng-bootstrap';
 
@@ -17,10 +17,12 @@ export class ModalDetailsFormComponent{
   date!: {year: number, month: number};
   minDate!: NgbDate;
  
-  pages = ['userDetails', 'services', 'calendar']
+  pages = ['enterDetails', 'selectService', 'dateTime'];
   page = this.pages[0];
 
   @Output() getButtonDisabled = new EventEmitter<boolean>();
+  @Output() getSubmitDisabled = new EventEmitter<boolean>();
+
 
   Services: Array<any> = [
     { label: 'Full Cut', bio: '$50.00 - 1 Hour', value: 'fullCut' },
@@ -44,12 +46,14 @@ export class ModalDetailsFormComponent{
 
    this.userDetailsFormGroup.statusChanges.subscribe(res => {
     // console.warn(this.userDetailsFormGroup)
-    this.getButtonDisabled.emit(res === 'INVALID')
+    this.getButtonDisabled.emit(res === 'INVALID');
+    this.checkSubmitDisabled();
   })
 
    this.servicesFormGroup.statusChanges.subscribe(res => {
     console.warn(this.servicesFormGroup.get('service')?.value)
     if(this.servicesFormGroup.get('service')?.value !== '') {
+      console.warn("shouldnot be disabled")
       this.getButtonDisabled.emit(false);
     }
     // const checkArray: FormArray = this.servicesFormGroup.get('checkArray') as FormArray;
@@ -59,6 +63,7 @@ export class ModalDetailsFormComponent{
     // else {
     //   this.getButtonDisabled.emit(false);
     // }
+    this.checkSubmitDisabled();
   })
     this.calendarFormGroup.statusChanges.subscribe(res => {
       console.warn(this.calendarFormGroup.get('calendar')?.value);
@@ -67,6 +72,7 @@ export class ModalDetailsFormComponent{
       if(this.calendarFormGroup.get('calendar')?.value !== null && this.calendarFormGroup.get('time')?.value !== '') {
         this.getButtonDisabled.emit(false);
       }
+      this.checkSubmitDisabled();
     })
  }
 
@@ -149,10 +155,12 @@ export class ModalDetailsFormComponent{
 //    }
   
 // }
-  continueClicked():void {
-    const index = this.pages.indexOf(this.page);
-    this.page = this.pages[index + 1];
-    this.getButtonDisabled.emit(true);
+  continueClicked(page: string):void {
+    // const index = this.pages.indexOf(this.page);
+    // this.page = this.pages[index + 1];
+    this.page = page;
+
+    this.checkStatusOfContinue();
   }
 
   onCheckboxChange(e: any):void {
@@ -170,4 +178,79 @@ export class ModalDetailsFormComponent{
       });
     }
   }
+
+  changeModalPage(pageName: string): void{
+    if(pageName === 'enterDetails'){
+      this.page = this.pages[0];
+    }
+    if(pageName === 'selectService'){
+      this.page = this.pages[1];
+    }  
+    if(pageName === 'dateTime'){
+      this.page = this.pages[2];
+    } 
+
+    this.checkStatusOfContinue();
+  }
+
+  checkStatusOfContinue():void {
+    console.warn("checking status of continue")
+
+    console.warn(this.page)
+    this.getButtonDisabled.emit(true);
+
+    if(this.page === this.pages[0]){
+      console.warn(this.userDetailsFormGroup.valid)
+      if(this.userDetailsFormGroup.valid) {
+        this.getButtonDisabled.emit(false);
+      }
+    }
+    if(this.page === this.pages[1]){
+      console.warn("in page 1")
+      if(this.servicesFormGroup.get('service')?.value !== '') {
+        this.getButtonDisabled.emit(false);
+      }
+    }
+    if(this.page === this.pages[2]){
+      if(this.calendarFormGroup.get('calendar')?.value !== null && this.calendarFormGroup.get('time')?.value !== '') {
+        this.getButtonDisabled.emit(false);
+      }
+    }
+  }
+
+  checkSubmitDisabled():void {
+    if(
+      (this.userDetailsFormGroup.valid) &&
+      (this.servicesFormGroup.get('service')?.value !== '') &&
+      (this.calendarFormGroup.get('calendar')?.value !== null && this.calendarFormGroup.get('time')?.value !== '')
+    )
+    {
+      this.getSubmitDisabled.emit(false);
+    }
+    else {
+      this.getSubmitDisabled.emit(true);
+    }
+  }
+
+  // submitClicked():void {
+  //   this.page = "submitted";
+  // }
+
+  // isNavDisabled(page:string):boolean {
+  //   console.warn(page)
+  //   if(this.page === this.pages[1]){
+  //     console.warn('in here')
+  //     if(this.userDetailsFormGroup.valid) {
+  //       return false;
+  //     }
+  //   }
+  //   if(this.page === this.pages[2]){
+  //     console.warn('in here2')
+
+  //     if(this.servicesFormGroup.get('service')?.value !== '') {
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // }
 }
