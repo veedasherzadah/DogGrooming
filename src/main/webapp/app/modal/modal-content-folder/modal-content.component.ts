@@ -52,6 +52,8 @@ export class ModalContentComponent{
 
   openModal():void {
     this.display = "block";
+    this.pageNav = this.pages[0];
+    this.pagesFormGroup.get('page')?.setValue(this.pageNav);
   }
   onCloseHandled():void {
   this.display = "none";
@@ -61,6 +63,14 @@ export class ModalContentComponent{
   // this.pageNav = this.pages[0];
   }
 
+  backClicked(): void {
+    console.warn("back clicked")
+    const index = this.pages.indexOf(this.pageNav);
+    this.pageNav = this.pages[index - 1];
+    this.pagesFormGroup.get('page')?.setValue(this.pageNav);
+    // console.warn(this.pageNav);
+    this.child?.continueClicked(this.pageNav);
+  }
   continueClicked():void {
     // console.warn(this.pageNav);
 

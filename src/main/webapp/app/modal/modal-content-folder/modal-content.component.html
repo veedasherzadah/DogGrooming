@@ -72,7 +72,8 @@
             </div>
         </div>
         <div class="modal-footer">
-          <button *ngIf="pageNav!='dateTime'" type="submit" class="modal-button continue-button" (click)="continueClicked()" 
+          <button *ngIf="pageNav!='enterDetails' && !(navDisabled)" class="modal-button back-button" (click)="backClicked()">Back</button>
+          <button *ngIf="pageNav!='dateTime'" class="modal-button continue-button" (click)="continueClicked()" 
           [disabled]="buttonDisabled">Continue
           </button>
           <button *ngIf="pageNav=='dateTime' && !(navDisabled)"class="modal-button continue-button" (click)="submitClicked()"
