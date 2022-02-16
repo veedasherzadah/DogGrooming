@@ -1,44 +1,92 @@
-<button type="button" class="modal-button" (click)="openModal()">Book Appointment</button>
-<div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Model Title</h4>
-        <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
-      </div>
-      <div class="modal-body">
-        <div class="container">
-            <div class="row">
-              <div class="col-3">
-                <ul class="nav flex-column left-navigation">
-                    <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Enter Details</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" aria-disabled="true">Select Service</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" aria-disabled="true">Date and Time</a>
-                    </li>
-                    <!-- <li class="nav-item">
-                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li> -->
-                  </ul>
-              </div>
-              <div class="col-9">
-                <jhi-modal-details-form #formComponent (getButtonDisabled)="setButtonClicked($event)"></jhi-modal-details-form>
+<div>
+  <button *ngIf="!(navDisabled)" type="button" class="modal-button" (click)="openModal()">Book Appointment</button>
+  <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!-- <h4 class="modal-title">Model Title</h4> -->
+          <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+              <div class="row">
+                <div class="col-3">
+                  <ul class="nav flex-column left-navigation">
+                      <!-- <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Enter Details</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#" aria-disabled="true">Select Service</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link disabled" href="#" aria-disabled="true">Date and Time</a>
+                      </li> -->
+
+                    <div class="side-nav" *ngIf="!(navDisabled)">
+                      <form [formGroup]="pagesFormGroup" novalidate>
+                        <div class="row">
+                          <label>
+                            <input type="radio" value='enterDetails' formControlName="page">
+                              <span>Enter Details</span>
+                          </label>
+                        </div>
+                        <div class="row">
+                          <label>
+                            <input type="radio" value='selectService' formControlName="page">
+                              <span>Select Service</span>
+                          </label>
+                        </div>
+                        <div class="row">
+                          <label>
+                            <input type="radio" value='dateTime' formControlName="page">
+                              <span>Date and Time</span>
+                          </label>
+                        </div>
+                      </form>
+                    </div>
+
+                      <!-- <li class="nav-item">
+                        <a class="nav-link" role="button" (click)="formComponent.changeModalPage('enterDetails')" >Enter Details</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" role="button" (click)="formComponent.changeModalPage('selectService')">Select Service</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" role="button" (click)="formComponent.changeModalPage('dateTime')">Date and Time</a>
+                      </li> -->
+
+                      
+                      <!-- <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                      </li> -->
+                    </ul>
+                </div>
+                <div class="col-9">
+                  <jhi-modal-details-form *ngIf="!(navDisabled)" #formComponent (getButtonDisabled)="setButtonClicked($event)" (getSubmitDisabled)="setSubmitClicked($event)"></jhi-modal-details-form>
+                </div>
               </div>
             </div>
-          </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="modal-button continue-button" (click)="formComponent.continueClicked()" 
-         [disabled]="buttonDisabled">Continue
+            <div *ngIf="navDisabled" class="thank-you">
+              <h1>Thank you for booking an appointment with us,</h1>
+              <h1>See you soon!</h1>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button *ngIf="pageNav!='enterDetails' && !(navDisabled)" class="modal-button back-button" (click)="backClicked()">Back</button>
+          <button *ngIf="pageNav!='dateTime'" class="modal-button continue-button" (click)="continueClicked()" 
+          [disabled]="buttonDisabled">Continue
+          </button>
+          <button *ngIf="pageNav=='dateTime' && !(navDisabled)"class="modal-button continue-button" (click)="submitClicked()"
+          [disabled]="submitDisabled">Book Appointment
         </button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- <first-component (click)="mySecondComponent.myFunction()"></first-component>
-<second-component #mySecondComponent></second-component> -->
+
+
+
+  <!-- <first-component (click)="mySecondComponent.myFunction()"></first-component>
+  <second-component #mySecondComponent></second-component> -->

@@ -1,9 +1,9 @@
-<div id="user-details" *ngIf="page===pages[0]">
-  <h2>Your Details</h2>
-  <form [formGroup]="userDetailsFormGroup" novalidate>
-    <div class="row">
-      <div class="col">
-        <input formControlName="firstName" required type="text" class="form-control" placeholder="First Name" aria-label="first-name">
+  <div id="user-details" *ngIf="page===pages[0]">
+    <h2>Your Details</h2>
+    <form [formGroup]="userDetailsFormGroup" novalidate>
+      <div class="row">
+        <div class="col">
+          <input formControlName="firstName" required type="text" class="form-control" placeholder="First Name" aria-label="first-name">
         <!-- <div *ngIf="showErrors || userDetailsFormGroup.controls['firstName'].invalid && (userDetailsFormGroup.controls['firstName'].dirty || userDetailsFormGroup.controls['firstName'].touched)" class="alert alert-danger">
             First name is required.
         </div> -->
@@ -57,9 +57,14 @@
       <div class="col">
         <select formControlName="dogSelect" name="dog-select" required>
           <option value="" disabled selected>Breed</option>
-          <option>Golden</option>
+          <option>Labrador Retriever</option>
+          <option>Golden Retriever</option>
+          <option>French Bulldog</option>
+          <option>Pitbull</option>
           <option>Poodle</option>
-          <option>German Shep</option>
+          <option>Beagle</option>
+          <option>Rottweiler</option>
+          <option>Mix</option>
       </select> 
       <div *ngIf="userDetailsFormGroup.controls['dogSelect'].invalid && (userDetailsFormGroup.controls['dogSelect'].dirty || userDetailsFormGroup.controls['dogSelect'].touched)" class="alert alert-danger">
         <div *ngIf="userDetailsFormGroup.controls['dogSelect'].errors?.required">
@@ -74,26 +79,65 @@
   <div id="services" *ngIf="page===pages[1]">
     <h2>Select one service</h2>
     <form [formGroup]="servicesFormGroup" novalidate>
-      <div *ngFor="let service of Services; let i=index">
-        <button class="form-check">
-          <input class="form-check-input" type="checkbox" [value]="service.value" (change)="onCheckboxChange($event)">
-          <label class="form-check-label" for="flexCheckDefault">
-            {{service.label}}
-          </label>
-          <div>{{service.bio}}</div>
-      </button>
+      <div class="service-buttons">
+        <div *ngFor="let service of Services; let i=index" class="service-button">
+          <!-- <span class="form-check"> -->
+            <!-- <input class="form-check-input" type="checkbox" [value]="service.value" (change)="onCheckboxChange($event)"> -->
+
+            <label>
+              <input type="radio" formControlName="service" value={{service.value}}>
+                <span>
+                  {{service.label}}
+                  <div>{{service.bio}}</div>
+                </span>
+            </label>
+
+            <!-- <input class="form-check-input" type="radio" formControlName="service" value={{service.value}} > -->
+            <!-- <label class="form-check-label" for="flexCheckDefault">
+              {{service.label}}
+            </label> -->
+              <!-- <span class="form-check-label">{{service.label}}</span>
+              <div>{{service.bio}}</div> -->
+ 
+          <!-- </span> -->
+        </div>
       </div>
-      </form>
+    </form>
+  </div>
+
+  <div id="calendar" *ngIf="page===pages[2]">
+    <h2>Select a date and time</h2>
+    <form [formGroup]="calendarFormGroup" novalidate>
+      <div class="calendar">
+
+      <ngb-datepicker #dp formControlName="calendar" [minDate]="minDate" (navigate)="date = $event.next"></ngb-datepicker>
     </div>
 
-    <div id="calendar" *ngIf="page===pages[2]">
-      <h2>Select a date and time</h2>
-      <form [formGroup]="calendarFormGroup" novalidate>
-        <ngb-datepicker #dp (navigate)="date = $event.next"></ngb-datepicker>
-
-        </form>
+    <div *ngIf="calendarValid">
+      <h3>Morning</h3>
+      <div class="time-buttons">
+        <div *ngFor="let time of MorningButtons; let i=index" class="button-div">
+          <label class="time-button">
+            <input type="radio" value={{time.name}} formControlName="time">
+              <span>{{time.name}}</span>
+          </label>
+        </div>
       </div>
 
-    
-  
-  
+      <h3>Afternoon</h3>
+      <div class="time-buttons">
+        <div *ngFor="let time of AfternoonButtons; let i=index" class="button-div">
+          <label class="time-button">
+            <input type="radio" value={{time.name}} formControlName="time">
+              <span>{{time.name}}</span>
+          </label>
+        </div>
+      </div>
+    </div>
+      </form>
+    </div>
+<!-- 
+    <div *ngIf="page==='submitted'">
+      <h1>Thank you for booking an appointment with us,</h1>
+      <h2>See you soon!</h2>
+    </div> -->
