@@ -16,6 +16,7 @@ export class ModalDetailsFormComponent{
 
   date!: {year: number, month: number};
   minDate!: NgbDate;
+  calendarValid = false;
  
   pages = ['enterDetails', 'selectService', 'dateTime'];
   page = this.pages[0];
@@ -68,6 +69,9 @@ export class ModalDetailsFormComponent{
     this.calendarFormGroup.statusChanges.subscribe(res => {
       console.warn(this.calendarFormGroup.get('calendar')?.value);
       console.warn(this.calendarFormGroup.get('time')?.value);
+      if(this.calendarFormGroup.get('calendar')?.value !== null){
+        this.calendarValid = true;
+      }
 
       if(this.calendarFormGroup.get('calendar')?.value !== null && this.calendarFormGroup.get('time')?.value !== '') {
         this.getButtonDisabled.emit(false);

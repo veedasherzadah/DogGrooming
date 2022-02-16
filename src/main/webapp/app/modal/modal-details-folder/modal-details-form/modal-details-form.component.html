@@ -113,6 +113,7 @@
       <ngb-datepicker #dp formControlName="calendar" [minDate]="minDate" (navigate)="date = $event.next"></ngb-datepicker>
     </div>
 
+    <div *ngIf="calendarValid">
       <h3>Morning</h3>
       <div class="time-buttons">
         <div *ngFor="let time of MorningButtons; let i=index" class="button-div">
@@ -132,6 +133,7 @@
           </label>
         </div>
       </div>
+    </div>
       </form>
     </div>
 <!-- 
