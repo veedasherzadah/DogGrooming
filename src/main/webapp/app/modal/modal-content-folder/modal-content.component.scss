@@ -6,6 +6,10 @@
   height: 55px;
 }
 
+.modal-body {
+  overflow-y: scroll;
+}
+
 .modal-dialog {
   max-width: none !important;
   max-height: none !important;

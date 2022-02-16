@@ -1,10 +1,3 @@
-h2 {
-    text-align: left;
-    color: #3A3A3A;
-    font-weight: 500;
-    font-size: 64px;
-    // line-height:75px;
-}
 
 .form-control {
     // margin-bottom:33px;
@@ -63,15 +56,82 @@ option {
     border: 1px solid #CF7A00;
 }
 
+
+h3 {
+    text-align: left;
+}
+
+.time-buttons {
+    display: flex; 
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.time-button {
+    input {
+        display:none;
+    }
+    span {
+        display: inline-block;
+        width:185px;
+        height:50px;
+        background-color: white;
+        color: #3A3A3A;
+        border: 1px solid #3A3A3A;
+        margin:0px 20px 20px 0px;
+        font-size: 30px;
+    }
+    input:checked + span { 
+        border: 1px solid #CF7A00;
+        color: #CF7A00;
+    } 
+    // width:185px;
+    // height:65px;
+    // background-color: white;
+    // color: #3A3A3A;
+    // border: 1px solid #3A3A3A;
+    // margin:0px 20px 20px 0px;
+}
+
+.time-button-clicked {
+    width:185px;
+    height:65px;
+    background-color: white;
+    margin:0px 20px 20px 0px;
+    border: 1px solid #CF7A00;
+    color: #CF7A00;
+}
+
+.button-div {
+    display: inline;
+}
+
 ngb-datepicker {
     display: block !important;
+    margin-bottom: 27px;
+    // width:600px;
+    // height:600px;
 }
 
-//ngb-datepicker  works but i cant get these bottom two to change size
-.ngb-dp-months {
-    display: block !important;
-}
+// .day {
+//     text-align: center;
+//     padding:7px;
+//     border-radius:1rem;
+//     width:4px !important;
+// }
+// .ngb-dp-day {
+//     width: 300% !important;
+//     height: 100% !important;
+// }
 
-.ngb-dp-weekday {
-    width: 20rem !important;
-}
+// .ngb-dp-weekday {
+//     width: 8em !important;
+//     height: 100% !important;
+// }
+
+// ngb-datepicker .table-condensed {
+//     width:600px;
+//     height:600px;
+// }
+
+

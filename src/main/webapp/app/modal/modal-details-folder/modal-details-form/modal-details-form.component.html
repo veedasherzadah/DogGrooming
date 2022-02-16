@@ -1,9 +1,9 @@
-<div id="user-details" *ngIf="page===pages[0]">
-  <h2>Your Details</h2>
-  <form [formGroup]="userDetailsFormGroup" novalidate>
-    <div class="row">
-      <div class="col">
-        <input formControlName="firstName" required type="text" class="form-control" placeholder="First Name" aria-label="first-name">
+  <div id="user-details" *ngIf="page===pages[0]">
+    <h2>Your Details</h2>
+    <form [formGroup]="userDetailsFormGroup" novalidate>
+      <div class="row">
+        <div class="col">
+          <input formControlName="firstName" required type="text" class="form-control" placeholder="First Name" aria-label="first-name">
         <!-- <div *ngIf="showErrors || userDetailsFormGroup.controls['firstName'].invalid && (userDetailsFormGroup.controls['firstName'].dirty || userDetailsFormGroup.controls['firstName'].touched)" class="alert alert-danger">
             First name is required.
         </div> -->
@@ -81,19 +81,59 @@
             {{service.label}}
           </label>
           <div>{{service.bio}}</div>
-      </button>
+        </button>
+    </div>
+    </form>
+  </div>
+
+  <div id="calendar" *ngIf="page===pages[2]">
+    <h2>Select a date and time</h2>
+    <form [formGroup]="calendarFormGroup" novalidate>
+      <ngb-datepicker #dp formControlName="calendar" [minDate]="minDate" (navigate)="date = $event.next"></ngb-datepicker>
+      <h3>Morning</h3>
+      <div class="time-buttons">
+        <div *ngFor="let time of MorningButtons; let i=index" class="button-div">
+          <!-- <input type="radio" class="time-button" id="amButton{{i}}" name="time"/>
+          <label class="form-check-label" for="amButton{{i}}">
+            {{time.name}}
+          </label> -->
+
+          <label class="time-button">
+            <input type="radio" value={{time.name}} formControlName="time">
+              <span>{{time.name}}</span>
+          </label>
+
+
+        </div>
+        <!-- <div *ngFor="let time of MorningButtons; let i=index" class="button-div">
+          <button class="time-button" id="amButton{{i}}" (click)="setTime(time.name, 'amButton'+i)"> {{time.name}} </button>
+        </div> -->
+      </div>
+
+      <h3>Afternoon</h3>
+      <div class="time-buttons">
+        <div *ngFor="let time of AfternoonButtons; let i=index" class="button-div">
+          <label class="time-button">
+            <input type="radio" value={{time.name}} formControlName="time">
+              <span>{{time.name}}</span>
+          </label>
+        </div>
+        <!-- <div *ngFor="let time of AfternoonButtons; let i=index" class="button-div">
+          <button class="time-button" id="pmButton{{i}}" (click)="setTime(time.name, 'pmButton'+i)"> {{time.name}} </button>
+        </div> -->
       </div>
       </form>
     </div>
 
-    <div id="calendar" *ngIf="page===pages[2]">
-      <h2>Select a date and time</h2>
-      <form [formGroup]="calendarFormGroup" novalidate>
-        <ngb-datepicker #dp (navigate)="date = $event.next"></ngb-datepicker>
-
-        </form>
-      </div>
-
-    
+    <!-- <form>
+      <input type="radio" name="radio" id="radio1" value="radio1" />
+      <label for="radio1"></label>
+      <input type="radio" name="radio" id="radio2" value="radio2" />
+      <label for="radio2"></label>
+    </form> -->
   
-  
+    <!-- <button mat-button [disabled]="form.get(controlName).disabled"
+    (click)="form.get(controlName).setValue("one");
+             form.get(controlName).markAsTouched()">
+Create
+</button> -->
