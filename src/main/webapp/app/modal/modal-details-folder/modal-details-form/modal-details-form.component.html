@@ -1,31 +1,99 @@
-<div class="user-details">
+<div id="user-details" *ngIf="page===pages[0]">
   <h2>Your Details</h2>
-  {{continue}}
-  <form [formGroup]="formGroup" (validSubmit)="onSubmit()">
+  <form [formGroup]="userDetailsFormGroup" novalidate>
     <div class="row">
       <div class="col">
         <input formControlName="firstName" required type="text" class="form-control" placeholder="First Name" aria-label="first-name">
-        <input formControlName="phone" required type="phone" class="form-control" placeholder="Mobile Phone" aria-label="phone">
+        <!-- <div *ngIf="showErrors || userDetailsFormGroup.controls['firstName'].invalid && (userDetailsFormGroup.controls['firstName'].dirty || userDetailsFormGroup.controls['firstName'].touched)" class="alert alert-danger">
+            First name is required.
+        </div> -->
+        <div *ngIf="userDetailsFormGroup.controls['firstName'].invalid && (userDetailsFormGroup.controls['firstName'].dirty || userDetailsFormGroup.controls['firstName'].touched)" class="alert alert-danger">
+          <div *ngIf="userDetailsFormGroup.controls['firstName'].errors?.required">
+            First Name is required.
+          </div>
+        </div>
+        <input formControlName="phone" required type="tel" class="form-control" placeholder="Mobile Phone" aria-label="phone">
+        <!-- <div *ngIf="showErrors" class="alert alert-danger">
+          Phone number is required.
+        </div> -->
+        <div *ngIf="userDetailsFormGroup.controls['phone'].invalid && (userDetailsFormGroup.controls['phone'].dirty || userDetailsFormGroup.controls['phone'].touched)" class="alert alert-danger">
+          <div *ngIf="userDetailsFormGroup.controls['phone'].errors?.required">
+            Phone number is required.
+          </div>
+        </div>
       </div>
       <div class="col">
         <input formControlName="lastName" required type="text" class="form-control" placeholder="Last Name" aria-label="last-name">
+        <!-- <div *ngIf="showErrors" class="alert alert-danger">
+          Last name is required.
+        </div> -->
+        <div *ngIf="userDetailsFormGroup.controls['lastName'].invalid && (userDetailsFormGroup.controls['lastName'].dirty || userDetailsFormGroup.controls['lastName'].touched)" class="alert alert-danger">
+          <div *ngIf="userDetailsFormGroup.controls['lastName'].errors?.required">
+            Last name is required.
+          </div>
+        </div>
         <input formControlName="email" required type="email" class="form-control" placeholder="Email address" aria-label="email-address">
+        <!-- <div *ngIf="showErrors" class="alert alert-danger">
+          Email is required.
+        </div> -->
+        <div *ngIf="userDetailsFormGroup.controls['email'].invalid && (userDetailsFormGroup.controls['email'].dirty || userDetailsFormGroup.controls['email'].touched)" class="alert alert-danger">
+          <div *ngIf="userDetailsFormGroup.controls['email'].errors?.required">
+            Email is required.
+          </div>
+        </div>
       </div>
     </div>
 
     <h2>Dog's Details</h2>
     <div class="row">
       <div class="col">
-        <input id="dog-name" required type="text" class="form-control" placeholder="Name" aria-label="dog-name">
+        <input formControlName="dogName" required type="text" class="form-control" placeholder="Name" aria-label="dog-name">
+        <div *ngIf="userDetailsFormGroup.controls['dogName'].invalid && (userDetailsFormGroup.controls['dogName'].dirty || userDetailsFormGroup.controls['dogName'].touched)" class="alert alert-danger">
+          <div *ngIf="userDetailsFormGroup.controls['dogName'].errors?.required">
+            Dog Name is required.
+          </div>
+        </div>
       </div>
       <div class="col">
-        <select id="dog-select" name="dog-select" required>
+        <select formControlName="dogSelect" name="dog-select" required>
           <option value="" disabled selected>Breed</option>
           <option>Golden</option>
           <option>Poodle</option>
           <option>German Shep</option>
       </select> 
+      <div *ngIf="userDetailsFormGroup.controls['dogSelect'].invalid && (userDetailsFormGroup.controls['dogSelect'].dirty || userDetailsFormGroup.controls['dogSelect'].touched)" class="alert alert-danger">
+        <div *ngIf="userDetailsFormGroup.controls['dogSelect'].errors?.required">
+          Dog Breed is required.
+        </div>
+      </div>
       </div>
     </div>
     </form>
   </div>
+
+  <div id="services" *ngIf="page===pages[1]">
+    <h2>Select one service</h2>
+    <form [formGroup]="servicesFormGroup" novalidate>
+      <div *ngFor="let service of Services; let i=index">
+        <button class="form-check">
+          <input class="form-check-input" type="checkbox" [value]="service.value" (change)="onCheckboxChange($event)">
+          <label class="form-check-label" for="flexCheckDefault">
+            {{service.label}}
+          </label>
+          <div>{{service.bio}}</div>
+      </button>
+      </div>
+      </form>
+    </div>
+
+    <div id="calendar" *ngIf="page===pages[2]">
+      <h2>Select a date and time</h2>
+      <form [formGroup]="calendarFormGroup" novalidate>
+        <ngb-datepicker #dp (navigate)="date = $event.next"></ngb-datepicker>
+
+        </form>
+      </div>
+
+    
+  
+  

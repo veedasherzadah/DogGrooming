@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalDetailsFormComponent } from '../modal-details-folder/modal-details-form/modal-details-form.component';
 
 @Component({
@@ -7,15 +7,13 @@ import { ModalDetailsFormComponent } from '../modal-details-folder/modal-details
   styleUrls: ['./modal-content.component.scss']
 })
 export class ModalContentComponent{
-
-  // continue = false;
-  // constructor() { }
-
-  // ngOnInit(): void {
-  // }
-
+  buttonDisabled = true;
   display = "none";
 
+
+  setButtonClicked(value: boolean): void{
+    this.buttonDisabled = value;
+}
 
   openModal():void {
     this.display = "block";
