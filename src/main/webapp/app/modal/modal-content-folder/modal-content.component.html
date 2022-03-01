@@ -1,6 +1,6 @@
 <div>
-  <button *ngIf="!(navDisabled)" type="button" class="modal-button" (click)="openModal()">Book Appointment</button>
-  <div class="modal" tabindex="-1" role="dialog"  [ngStyle]="{'display':display}">
+  <button *ngIf="!navDisabled" type="button" class="modal-button" (click)="openModal()">Book Appointment</button>
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{ display: display }">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -9,10 +9,10 @@
         </div>
         <div class="modal-body">
           <div class="container">
-              <div class="row">
-                <div class="col-3">
-                  <ul class="nav flex-column left-navigation">
-                      <!-- <li class="nav-item">
+            <div class="row">
+              <div class="col-3">
+                <ul class="nav flex-column left-navigation">
+                  <!-- <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Enter Details</a>
                       </li>
                       <li class="nav-item">
@@ -22,30 +22,30 @@
                         <a class="nav-link disabled" href="#" aria-disabled="true">Date and Time</a>
                       </li> -->
 
-                    <div class="side-nav" *ngIf="!(navDisabled)">
-                      <form [formGroup]="pagesFormGroup" novalidate>
-                        <div class="row">
-                          <label>
-                            <input type="radio" value='enterDetails' formControlName="page">
-                              <span>Enter Details</span>
-                          </label>
-                        </div>
-                        <div class="row">
-                          <label>
-                            <input type="radio" value='selectService' formControlName="page">
-                              <span>Select Service</span>
-                          </label>
-                        </div>
-                        <div class="row">
-                          <label>
-                            <input type="radio" value='dateTime' formControlName="page">
-                              <span>Date and Time</span>
-                          </label>
-                        </div>
-                      </form>
-                    </div>
+                  <div class="side-nav" *ngIf="!navDisabled">
+                    <form [formGroup]="pagesFormGroup" novalidate>
+                      <div class="row">
+                        <label>
+                          <input type="radio" value="enterDetails" formControlName="page" />
+                          <span>Enter Details</span>
+                        </label>
+                      </div>
+                      <div class="row">
+                        <label>
+                          <input type="radio" value="selectService" formControlName="page" />
+                          <span>Select Service</span>
+                        </label>
+                      </div>
+                      <div class="row">
+                        <label>
+                          <input type="radio" value="dateTime" formControlName="page" />
+                          <span>Date and Time</span>
+                        </label>
+                      </div>
+                    </form>
+                  </div>
 
-                      <!-- <li class="nav-item">
+                  <!-- <li class="nav-item">
                         <a class="nav-link" role="button" (click)="formComponent.changeModalPage('enterDetails')" >Enter Details</a>
                       </li>
                       <li class="nav-item">
@@ -55,38 +55,86 @@
                         <a class="nav-link" role="button" (click)="formComponent.changeModalPage('dateTime')">Date and Time</a>
                       </li> -->
 
-                      
-                      <!-- <li class="nav-item">
+                  <!-- <li class="nav-item">
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                       </li> -->
-                    </ul>
-                </div>
-                <div class="col-9">
-                  <jhi-modal-details-form *ngIf="!(navDisabled)" #formComponent (getButtonDisabled)="setButtonClicked($event)" (getSubmitDisabled)="setSubmitClicked($event)"></jhi-modal-details-form>
-                </div>
+                </ul>
+              </div>
+              <div class="col-9">
+                <jhi-modal-details-form
+                  *ngIf="!navDisabled"
+                  #formComponent
+                  (getButtonDisabled)="setButtonClicked($event)"
+                  (getSubmitDisabled)="setSubmitClicked($event)"
+                ></jhi-modal-details-form>
               </div>
             </div>
-            <div *ngIf="navDisabled" class="thank-you">
-              <h1>Thank you for booking an appointment with us,</h1>
-              <h1>See you soon!</h1>
+          </div>
+          <div *ngIf="navDisabled" class="thank-you">
+            <h2 style="text-align: center">Appointment successfully booked!</h2>
+            <br />
+            <h1 style="text-align: left">Booking Details</h1>
+            <div style="display: flex">
+              <div style="flex: 25%">
+                <p style="text-align: left">
+                  First Name: <span style="color: gray">{{ personalForm.value.firstName }}</span>
+                </p>
+                <p style="text-align: left">
+                  Last Name: <span style="color: gray">{{ personalForm.value.LastName }}</span>
+                </p>
+              </div>
+              <div style="flex: 25%">
+                <p style="text-align: left">
+                  Email: <span style="color: gray">{{ personalForm.value.email }}</span>
+                </p>
+                <p style="text-align: left">
+                  Phone: <span style="color: gray">{{ personalForm.value.phone }}</span>
+                </p>
+              </div>
+              <div style="flex: 25%">
+                <p style="text-align: left">
+                  Dog Name: <span style="color: gray">{{ personalForm.value.dogName }}</span>
+                </p>
+                <p style="text-align: left">
+                  Dog Breed: <span style="color: gray">{{ personalForm.value.dogSelect }}</span>
+                </p>
+              </div>
+              <div style="flex: 25%">
+                <p style="text-align: left">
+                  Service: <span style="color: gray">{{ serviceForm.value.service }}</span>
+                </p>
+                <p style="text-align: left">
+                  Date/Time: <span style="color: gray">{{ scheduleForm.value.calendar }} @ {{ scheduleForm.value.time }}</span>
+                </p>
+              </div>
             </div>
+            <h1>Thank you for booking an appointment with us,</h1>
+            <h1>See you soon!</h1>
+          </div>
         </div>
         <div class="modal-footer">
-          <button *ngIf="pageNav!='enterDetails' && !(navDisabled)" class="modal-button back-button" (click)="backClicked()">Back</button>
-          <button *ngIf="pageNav!='dateTime'" class="modal-button continue-button" (click)="continueClicked()" 
-          [disabled]="buttonDisabled">Continue
+          <button *ngIf="pageNav != 'enterDetails' && !navDisabled" class="modal-button back-button" (click)="backClicked()">Back</button>
+          <button
+            *ngIf="pageNav != 'dateTime'"
+            class="modal-button continue-button"
+            (click)="continueClicked()"
+            [disabled]="buttonDisabled"
+          >
+            Continue
           </button>
-          <button *ngIf="pageNav=='dateTime' && !(navDisabled)"class="modal-button continue-button" (click)="submitClicked()"
-          [disabled]="submitDisabled">Book Appointment
-        </button>
+          <button
+            *ngIf="pageNav == 'dateTime' && !navDisabled"
+            class="modal-button continue-button"
+            (click)="submitClicked()"
+            [disabled]="submitDisabled"
+          >
+            Book Appointment
+          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-
-
-
-  <!-- <first-component (click)="mySecondComponent.myFunction()"></first-component>
+<!-- <first-component (click)="mySecondComponent.myFunction()"></first-component>
   <second-component #mySecondComponent></second-component> -->

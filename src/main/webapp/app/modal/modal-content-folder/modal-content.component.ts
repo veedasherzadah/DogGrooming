@@ -1,3 +1,4 @@
+import { NONE_TYPE } from '@angular/compiler';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ModalDetailsFormComponent } from '../modal-details-folder/modal-details-form/modal-details-form.component';
@@ -5,13 +6,16 @@ import { ModalDetailsFormComponent } from '../modal-details-folder/modal-details
 @Component({
   selector: 'jhi-modal-content',
   templateUrl: './modal-content.component.html',
-  styleUrls: ['./modal-content.component.scss']
+  styleUrls: ['./modal-content.component.scss'],
 })
-export class ModalContentComponent{
+export class ModalContentComponent {
   buttonDisabled = true;
   submitDisabled = true;
   navDisabled = false;
-  display = "none";
+  display = 'none';
+  personalForm: any;
+  serviceForm: any;
+  scheduleForm: any;
 
   pages = ['enterDetails', 'selectService', 'dateTime'];
   pageNav = this.pages[0];
@@ -27,51 +31,51 @@ export class ModalContentComponent{
       // console.warn(this.pagesFormGroup.get('page')?.value)
       this.pageNav = this.pagesFormGroup.get('page')?.value;
       this.child?.changeModalPage(this.pagesFormGroup.get('page')?.value);
-    })
-  }
-
-  createForm():void {
-    this.pagesFormGroup = this.fb.group({
-     page: new FormControl({
-      value:this.pageNav, 
-      // disabled: this.navDisabled
-    },[
-       Validators.required
-     ])
     });
   }
 
-
-  setButtonClicked(value: boolean): void{
-      this.buttonDisabled = value;
+  createForm(): void {
+    this.pagesFormGroup = this.fb.group({
+      page: new FormControl(
+        {
+          value: this.pageNav,
+          // disabled: this.navDisabled
+        },
+        [Validators.required]
+      ),
+    });
   }
 
-  setSubmitClicked(value: boolean): void{
+  setButtonClicked(value: boolean): void {
+    this.buttonDisabled = value;
+  }
+
+  setSubmitClicked(value: boolean): void {
     this.submitDisabled = value;
   }
 
-  openModal():void {
-    this.display = "block";
+  openModal(): void {
+    this.display = 'block';
     this.pageNav = this.pages[0];
     this.pagesFormGroup.get('page')?.setValue(this.pageNav);
   }
-  onCloseHandled():void {
-  this.display = "none";
-  this.buttonDisabled = true;
-  // this.submitDisabled = true;
-  this.navDisabled = false;
-  // this.pageNav = this.pages[0];
+  onCloseHandled(): void {
+    this.display = 'none';
+    this.buttonDisabled = true;
+    // this.submitDisabled = true;
+    this.navDisabled = false;
+    // this.pageNav = this.pages[0];
   }
 
   backClicked(): void {
-    console.warn("back clicked")
+    console.warn('back clicked');
     const index = this.pages.indexOf(this.pageNav);
     this.pageNav = this.pages[index - 1];
     this.pagesFormGroup.get('page')?.setValue(this.pageNav);
     // console.warn(this.pageNav);
     this.child?.continueClicked(this.pageNav);
   }
-  continueClicked():void {
+  continueClicked(): void {
     // console.warn(this.pageNav);
 
     const index = this.pages.indexOf(this.pageNav);
@@ -79,7 +83,6 @@ export class ModalContentComponent{
     this.pagesFormGroup.get('page')?.setValue(this.pageNav);
     // console.warn(this.pageNav);
     this.child?.continueClicked(this.pageNav);
-    
   }
 
   // isNavDisabled(page:string):boolean {
@@ -89,10 +92,13 @@ export class ModalContentComponent{
   //   return false;
   // }
 
-  submitClicked():void {
-    console.warn("submit clicked");
+  submitClicked(): void {
+    console.warn('submit clicked');
     this.navDisabled = true;
     // this.pagesFormGroup.get('page')?.disable;
     // this.child?.submitClicked();
+    this.personalForm = this.child?.userDetailsFormGroup;
+    this.serviceForm = this.child?.servicesFormGroup;
+    this.scheduleForm = this.child?.calendarFormGroup;
   }
 }

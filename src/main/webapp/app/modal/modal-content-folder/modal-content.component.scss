@@ -1,16 +1,16 @@
 .modal-button {
   top: 30%;
-}  
+}
 .continue-button {
   width: 216px;
   height: 55px;
-  margin:0 0 0 auto;
+  margin: 0 0 0 auto;
 }
 .back-button {
   width: 216px;
   height: 55px;
-  border-color: #CF7A00;
-  color: #CF7A00;
+  border-color: #cf7a00;
+  color: #cf7a00;
   background-color: white;
   // float:left;
 }
@@ -23,7 +23,7 @@
   max-width: none !important;
   max-height: none !important;
   width: 90% !important;
-  height:90% !important;
+  height: 90% !important;
 }
 
 .modal-content {
@@ -32,7 +32,7 @@
 }
 
 .side-nav {
-  input { 
+  input {
     display: none;
   }
   span {
@@ -46,12 +46,12 @@
   .row {
     display: grid;
   }
-  input:hover + span { 
-    color: #CF7A00;
-} 
-input:checked + span { 
-    color: #CF7A00;
-}
+  input:hover + span {
+    color: #cf7a00;
+  }
+  input:checked + span {
+    color: #cf7a00;
+  }
 }
 
 .modal-footer {
@@ -59,7 +59,8 @@ input:checked + span {
 }
 
 .thank-you {
-  margin-top:30%;
+  margin-left: 20%;
+  margin-right: 20%;
   justify-content: center;
   align-items: center;
   height: 200px;
