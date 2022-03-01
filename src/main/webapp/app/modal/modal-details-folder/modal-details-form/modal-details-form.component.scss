@@ -1,62 +1,61 @@
-
 .form-control {
-    color: #3A3A3A;
-    border: 1px solid #C4C4C4;
-    margin-bottom:27px;
+  color: #3a3a3a;
+  border: 1px solid #c4c4c4;
+  margin-bottom: 27px;
 }
 ::placeholder {
-    color: #C9C9C9
+  color: #c9c9c9;
 }
 
 .alert-danger {
-    margin-top:-27px;
+  margin-top: -27px;
 }
 select {
-    height: calc(1.5em + 0.75rem + 2px);
-    color: #3A3A3A;
-    border: 1px solid #C4C4C4;
-    width: 100%;
-    margin-bottom:27px;
+  height: calc(1.5em + 0.75rem + 2px);
+  color: #3a3a3a;
+  border: 1px solid #c4c4c4;
+  width: 100%;
+  margin-bottom: 27px;
 }
 
 select:required:invalid {
-    color: #C9C9C9;
+  color: #c9c9c9;
 }
-option[value=""][disabled] {
-    display: none;
+option[value=''][disabled] {
+  display: none;
 }
 option {
-    color: black;   
+  color: black;
 }
 
 .service-buttons {
-    .service-button {
-        display:grid;
-    }
-    span {
-        display: block;
-        border: 1px solid #C4C4C4;
-        text-align: left;
-        padding:18px;
-        width:100%;
-        height:102px;
-        font-size: 20px;
-        font-weight: 500;
-        color: #3A3A3A;
-        background-color: white;
-        margin-bottom:26px;
-    }
-    input {
-        display: none;
-    }
-    input:hover + span { 
-        border: 1px solid #CF7A00;
-        color: #CF7A00;
-    } 
-    input:checked + span { 
-        border: 1px solid #CF7A00;
-        color: #CF7A00;
-    } 
+  .service-button {
+    display: grid;
+  }
+  span {
+    display: block;
+    border: 1px solid #c4c4c4;
+    text-align: left;
+    padding: 18px;
+    width: 100%;
+    height: 120px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #3a3a3a;
+    background-color: white;
+    margin-bottom: 26px;
+  }
+  input {
+    display: none;
+  }
+  input:hover + span {
+    border: 1px solid #cf7a00;
+    color: #cf7a00;
+  }
+  input:checked + span {
+    border: 1px solid #cf7a00;
+    color: #cf7a00;
+  }
 }
 // .form-check {
 //     display: inline-block;
@@ -74,71 +73,69 @@ option {
 //     .form-check label{
 //         color: #000000;
 //     }
-    
+
 //     .form-check-input {
 //         // display: none;
 //     }
 
-//     input:hover + span { 
+//     input:hover + span {
 //         border: 1px solid #CF7A00;
 //         color: #CF7A00;
-//     } 
-//     input:checked + span { 
+//     }
+//     input:checked + span {
 //         border: 1px solid #CF7A00;
 //         color: #CF7A00;
-//     } 
+//     }
 // }
 
 #services button {
-    margin-bottom:26px;
+  margin-bottom: 26px;
 }
 #services button:focus {
-    border: 1px solid #CF7A00;
+  border: 1px solid #cf7a00;
 }
 
-
 h3 {
-    text-align: left;
+  text-align: left;
 }
 
 .time-buttons {
-    display: flex; 
-    justify-content: flex-start;
-    flex-wrap: wrap;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .time-button {
-    .button-div {
-        display: inline;
-    }
-    input {
-        display:none;
-    }
-    span {
-        display: inline-block;
-        width:185px;
-        height:50px;
-        background-color: white;
-        color: #3A3A3A;
-        border: 1px solid #3A3A3A;
-        margin:0px 20px 20px 0px;
-        font-size: 30px;
-    }
-    input:hover + span { 
-        border: 1px solid #CF7A00;
-        color: #CF7A00;
-    } 
-    input:checked + span { 
-        border: 1px solid #CF7A00;
-        color: #CF7A00;
-    } 
+  .button-div {
+    display: inline;
+  }
+  input {
+    display: none;
+  }
+  span {
+    display: inline-block;
+    width: 185px;
+    height: 50px;
+    background-color: white;
+    color: #3a3a3a;
+    border: 1px solid #3a3a3a;
+    margin: 0px 20px 20px 0px;
+    font-size: 30px;
+  }
+  input:hover + span {
+    border: 1px solid #cf7a00;
+    color: #cf7a00;
+  }
+  input:checked + span {
+    border: 1px solid #cf7a00;
+    color: #cf7a00;
+  }
 }
 
-
-.calendar { 
-    display: flex;
-    justify-content: flex-start;
-    margin-bottom:27px;
+.calendar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 27px;
 }
 
 // ngb-datepicker {
@@ -168,5 +165,3 @@ h3 {
 //     width:600px;
 //     height:600px;
 // }
-
-
