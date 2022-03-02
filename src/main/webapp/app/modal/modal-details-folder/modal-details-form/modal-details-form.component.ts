@@ -8,7 +8,7 @@ import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap'
   templateUrl: './modal-details-form.component.html',
   styleUrls: ['./modal-details-form.component.scss'],
 })
-export class ModalDetailsFormComponent implements OnInit{
+export class ModalDetailsFormComponent implements OnInit {
   userDetailsFormGroup!: FormGroup;
   servicesFormGroup!: FormGroup;
   calendarFormGroup!: FormGroup;
@@ -24,7 +24,7 @@ export class ModalDetailsFormComponent implements OnInit{
   page = this.pages[0];
 
   dogList: any[] = [];
-  name = ''
+  name = '';
 
   selectedDay!: NgbDateStruct;
   now = new Date();
@@ -57,14 +57,14 @@ export class ModalDetailsFormComponent implements OnInit{
     { name: '1:30 pm', value: '1:30pm' },
   ];
   constructor(private fb: FormBuilder, private calendar: NgbCalendar, private http: HttpClient) {
-    console.warn("in constructor")
+    console.warn('in constructor');
     this.createForm();
 
-    if(localStorage.getItem("userDetailsFormGroup")){
+    if (localStorage.getItem('userDetailsFormGroup')) {
       this.setForms();
     }
     this.minDate = calendar.getToday();
-    this.maxDate = calendar.getNext(this.minDate, 'm', 6)
+    this.maxDate = calendar.getNext(this.minDate, 'm', 6);
     this.userDetailsFormGroup.statusChanges.subscribe(res => {
       // console.warn(this.userDetailsFormGroup)
       this.getButtonDisabled.emit(res === 'INVALID');
@@ -85,8 +85,8 @@ export class ModalDetailsFormComponent implements OnInit{
       this.checkSubmitDisabled();
     });
     this.calendarFormGroup.statusChanges.subscribe(res => {
-      console.warn("getting calendar")
-      if (this.calendarFormGroup.get('calendar')?.value !== undefined ) {
+      console.warn('getting calendar');
+      if (this.calendarFormGroup.get('calendar')?.value !== undefined) {
         this.calendarValid = true;
       }
 
@@ -97,21 +97,20 @@ export class ModalDetailsFormComponent implements OnInit{
     });
   }
 
-
   ngOnInit(): void {
-      this.getDogBreeds();
-      // this.editClicked = false;
-      console.warn('in ngoninit')
-      localStorage.clear()
+    this.getDogBreeds();
+    // this.editClicked = false;
+    console.warn('in ngoninit');
+    localStorage.clear();
   }
 
   createForm(): void {
-    console.warn("got in createForm")
+    console.warn('got in createForm');
     this.userDetailsFormGroup = this.fb.group({
-      email: new FormControl(null, [
-        Validators.required,
-        // Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/),
-      ]),
+      email: new FormControl(null, {
+        validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
+        updateOn: 'blur',
+      }),
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       phone: new FormControl(null, {
@@ -131,7 +130,6 @@ export class ModalDetailsFormComponent implements OnInit{
       calendar: new FormControl(null, [Validators.required]),
       time: new FormControl('', [Validators.required]),
     });
-    
   }
 
   continueClicked(page: string): void {
@@ -203,16 +201,16 @@ export class ModalDetailsFormComponent implements OnInit{
   }
 
   getDogBreeds(): void {
-    this.dogList.push({name:'Mixed breed / Unknown'})
-    this.http.get<any[]>('https://api.thedogapi.com/v1/breeds').subscribe((data) => {
+    this.dogList.push({ name: 'Mixed breed / Unknown' });
+    this.http.get<any[]>('https://api.thedogapi.com/v1/breeds').subscribe(data => {
       data.forEach(dog => {
-        this.dogList.push(dog)
+        this.dogList.push(dog);
       });
     });
   }
 
-  setForms() : void{
-    console.warn("resetting forms")
+  setForms(): void {
+    console.warn('resetting forms');
     this.patchUserDetailsFormGroup(JSON.parse(localStorage.getItem('userDetailsFormGroup')!));
     this.patchServicesFormGroup(JSON.parse(localStorage.getItem('serviceFormGroup')!));
     this.patchCalendarFormGroup(JSON.parse(localStorage.getItem('calendarFormGroup')!));
@@ -220,12 +218,12 @@ export class ModalDetailsFormComponent implements OnInit{
 
   patchUserDetailsFormGroup(userDetailsFormGroup:any) : void {
     this.userDetailsFormGroup.patchValue({
-        email: userDetailsFormGroup.email,
-        firstName: userDetailsFormGroup.firstName,
-        lastName: userDetailsFormGroup.lastName,
-        phone: userDetailsFormGroup.phone,
-        dogName: userDetailsFormGroup.dogName,
-        dogSelect: userDetailsFormGroup.dogSelect,
+      email: userDetailsFormGroup.email,
+      firstName: userDetailsFormGroup.firstName,
+      lastName: userDetailsFormGroup.lastName,
+      phone: userDetailsFormGroup.phone,
+      dogName: userDetailsFormGroup.dogName,
+      dogSelect: userDetailsFormGroup.dogSelect,
     });
     if(userDetailsFormGroup.dogSelect.name === undefined) {
       this.name = userDetailsFormGroup.dogSelect
@@ -235,13 +233,13 @@ export class ModalDetailsFormComponent implements OnInit{
     }
   }
 
-  patchServicesFormGroup(servicesFormGroup:any) : void {
+  patchServicesFormGroup(servicesFormGroup: any): void {
     this.servicesFormGroup.patchValue({
-      service: servicesFormGroup.service
-    })
+      service: servicesFormGroup.service,
+    });
   }
 
-  patchCalendarFormGroup(calendarFormGroup:any) : void {
+  patchCalendarFormGroup(calendarFormGroup: any): void {
     this.calendarFormGroup.patchValue({
       calendar: calendarFormGroup.calendar,
       time: calendarFormGroup.time
@@ -250,7 +248,6 @@ export class ModalDetailsFormComponent implements OnInit{
   }
 
   regenerateForm(): void {
-    console.warn("in regnerate form")
+    console.warn('in regnerate form');
   }
 }
-

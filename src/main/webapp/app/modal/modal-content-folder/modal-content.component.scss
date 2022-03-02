@@ -50,9 +50,6 @@
   .row {
     display: grid;
   }
-  input:hover + span {
-    color: #cf7a00;
-  }
   input:checked + span {
     color: #cf7a00;
   }
@@ -70,4 +67,3 @@
   align-items: center;
   height: 200px;
 }
-

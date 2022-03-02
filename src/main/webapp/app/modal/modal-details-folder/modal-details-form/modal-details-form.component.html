@@ -1,4 +1,3 @@
-
 <div id="user-details" *ngIf="page === pages[0]">
   <h2>Your Details</h2>
   <form [formGroup]="userDetailsFormGroup" novalidate>
@@ -28,7 +27,7 @@
           required
           type="tel"
           class="form-control"
-          placeholder="(###-###-####)"
+          placeholder="###-###-####"
           aria-label="phone"
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
         />
@@ -71,8 +70,9 @@
           required
           type="email"
           class="form-control"
-          placeholder="(name@domain.com)"
+          placeholder="name@domain.com"
           aria-label="email-address"
+          pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
         />
         <!-- <div *ngIf="showErrors" class="alert alert-danger">
           Email is required.
@@ -85,6 +85,7 @@
           class="alert alert-danger"
         >
           <div *ngIf="userDetailsFormGroup.controls['email'].errors?.required">Email is required.</div>
+          <div *ngIf="userDetailsFormGroup.controls['email'].errors?.pattern">Invalid email pattern.</div>
         </div>
       </div>
     </div>
@@ -111,7 +112,9 @@
           <h4>Dog Breed<span style="color: red">*</span></h4>
         </div>
 
-        <ng-autocomplete class="select" #ngAutoCompleteStatic
+        <ng-autocomplete
+          class="select"
+          #ngAutoCompleteStatic
           [data]="dogList"
           formControlName="dogSelect"
           name="dog-select"
@@ -169,8 +172,14 @@
   <h2>Select a date and time<span style="color: red">*</span></h2>
   <form [formGroup]="calendarFormGroup" novalidate>
     <div class="calendar">
-      <ngb-datepicker #dp formControlName="calendar" [(ngModel)]="model" 
-      [minDate]="minDate" [maxDate]="maxDate"  (navigate)="date = $event.next"></ngb-datepicker>
+      <ngb-datepicker
+        #dp
+        formControlName="calendar"
+        [(ngModel)]="model"
+        [minDate]="minDate"
+        [maxDate]="maxDate"
+        (navigate)="date = $event.next"
+      ></ngb-datepicker>
     </div>
 
     <div *ngIf="model" class="selected-date">
