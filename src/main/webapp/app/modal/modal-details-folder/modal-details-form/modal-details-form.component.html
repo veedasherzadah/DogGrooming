@@ -1,3 +1,4 @@
+
 <div id="user-details" *ngIf="page === pages[0]">
   <h2>Your Details</h2>
   <form [formGroup]="userDetailsFormGroup" novalidate>
@@ -109,17 +110,52 @@
         <div style="text-align: left">
           <h4>Dog Breed<span style="color: red">*</span></h4>
         </div>
-        <select formControlName="dogSelect" name="dog-select" required>
+
+
+        <!-- <input list="dogs"  formControlName="dogSelect" name="dog-select" required>
+          <datalist id="dogs" class="selectpicker">
+            <option 
+            *ngFor="let dog of dogList" 
+            [value]="dog.name">
+            {{dog.name}}
+        </option>
+          </datalist>  -->
+
+        <!-- <select class="selectpicker" data-live-search="true" formControlName="dogSelect" name="dog-select" required>
           <option value="" disabled selected>Breed</option>
-          <option>Labrador Retriever</option>
-          <option>Golden Retriever</option>
-          <option>French Bulldog</option>
-          <option>Pitbull</option>
-          <option>Poodle</option>
-          <option>Beagle</option>
-          <option>Rottweiler</option>
-          <option>Mix</option>
-        </select>
+          <option 
+            *ngFor="let dog of dogList" 
+            [value]="dog.name">
+            {{dog.name}}
+        </option>
+        </select> -->
+
+
+        <ng-autocomplete class="select" #ngAutoCompleteStatic
+          [data]="dogList"
+          formControlName="dogSelect"
+          name="dog-select"
+          [(ngModel)]="name"
+          [initialValue]=""
+          placeholder="Select Dog Breed"
+          [searchKeyword]="keyword"
+          notFoundText="Not found"
+          [itemTemplate]="itemTemplateStatic"
+          [notFoundTemplate]="notFoundTemplate"
+        >
+        </ng-autocomplete>
+
+        <ng-template #itemTemplateStatic let-item>
+          <a [innerHTML]="item.name"></a>
+        </ng-template>
+
+        <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+        </ng-template>
+
+
+
+
         <div
           *ngIf="
             userDetailsFormGroup.controls['dogSelect'].invalid &&
