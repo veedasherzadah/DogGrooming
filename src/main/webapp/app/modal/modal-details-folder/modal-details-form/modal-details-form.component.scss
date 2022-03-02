@@ -10,10 +10,15 @@
 .alert-danger {
   margin-top: -27px;
 }
-select {
+
+.select.ng-invalid:not(form) {
+  border-left: none;
+}
+
+.select {
   height: calc(1.5em + 0.75rem + 2px);
   color: #3a3a3a;
-  border: 1px solid #c4c4c4;
+  border: 1px solid white;
   width: 100%;
   margin-bottom: 27px;
 }

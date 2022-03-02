@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
@@ -7,7 +8,7 @@ import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap'
   templateUrl: './modal-details-form.component.html',
   styleUrls: ['./modal-details-form.component.scss'],
 })
-export class ModalDetailsFormComponent {
+export class ModalDetailsFormComponent implements OnInit{
   userDetailsFormGroup!: FormGroup;
   servicesFormGroup!: FormGroup;
   calendarFormGroup!: FormGroup;
@@ -19,8 +20,13 @@ export class ModalDetailsFormComponent {
   pages = ['enterDetails', 'selectService', 'dateTime'];
   page = this.pages[0];
 
+  dogList: any[] = [];
+  name = ''
+
   @Output() getButtonDisabled = new EventEmitter<boolean>();
   @Output() getSubmitDisabled = new EventEmitter<boolean>();
+
+  public keyword = 'name';
 
   Services: Array<any> = [
     { label: 'Full Cut', bio: '$50.00 - 1 Hour', value: 'fullCut', desc: 'Typical shave leaving a 1/2 inch of hair or less.' },
@@ -43,7 +49,7 @@ export class ModalDetailsFormComponent {
     { name: '12:00 pm', value: '12:00pm' },
     { name: '1:30 pm', value: '1:30pm' },
   ];
-  constructor(private fb: FormBuilder, private calendar: NgbCalendar) {
+  constructor(private fb: FormBuilder, private calendar: NgbCalendar, private http: HttpClient) {
     this.createForm();
     this.minDate = calendar.getToday();
 
@@ -82,6 +88,9 @@ export class ModalDetailsFormComponent {
     });
   }
 
+  ngOnInit(): void {
+      this.getDogBreeds();
+  }
   createForm(): void {
     this.userDetailsFormGroup = this.fb.group({
       email: new FormControl('', [
@@ -147,6 +156,7 @@ export class ModalDetailsFormComponent {
 
   // }
   continueClicked(page: string): void {
+    console.warn(this.userDetailsFormGroup)
     // const index = this.pages.indexOf(this.page);
     // this.page = this.pages[index + 1];
     this.page = page;
@@ -222,25 +232,23 @@ export class ModalDetailsFormComponent {
     }
   }
 
-  // submitClicked():void {
-  //   this.page = "submitted";
+
+  // showConfig() {
+  //   this.configService.getConfig()
+  //     .subscribe((data: Config) => this.config = {
+  //         demoUrl: data['demoUrl'],
+  //         filename:  data['filename']
+  //     });
   // }
 
-  // isNavDisabled(page:string):boolean {
-  //   console.warn(page)
-  //   if(this.page === this.pages[1]){
-  //     console.warn('in here')
-  //     if(this.userDetailsFormGroup.valid) {
-  //       return false;
-  //     }
-  //   }
-  //   if(this.page === this.pages[2]){
-  //     console.warn('in here2')
-
-  //     if(this.servicesFormGroup.get('service')?.value !== '') {
-  //       return false;
-  //     }
-  //   }
-  //   return true;
-  // }
+  getDogBreeds(): void {
+    this.dogList.push({name:'Mixed breed / Unknown'})
+    this.http.get<any[]>('https://api.thedogapi.com/v1/breeds').subscribe((data) => {
+      data.forEach(dog => {
+        this.dogList.push(dog)
+      });
+      // this.dogList = data;
+      console.warn(this.dogList)
+    });
+  }
 }
