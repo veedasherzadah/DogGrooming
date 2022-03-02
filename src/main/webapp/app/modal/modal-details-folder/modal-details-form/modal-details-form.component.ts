@@ -8,20 +8,21 @@ import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap'
   templateUrl: './modal-details-form.component.html',
   styleUrls: ['./modal-details-form.component.scss'],
 })
-export class ModalDetailsFormComponent implements OnInit{
+export class ModalDetailsFormComponent implements OnInit {
   userDetailsFormGroup!: FormGroup;
   servicesFormGroup!: FormGroup;
   calendarFormGroup!: FormGroup;
 
   date!: { year: number; month: number };
   minDate!: NgbDate;
+  maxDate = new NgbDate(2023, 1, 1);
   calendarValid = false;
 
   pages = ['enterDetails', 'selectService', 'dateTime'];
   page = this.pages[0];
 
   dogList: any[] = [];
-  name = ''
+  name = '';
 
   @Output() getButtonDisabled = new EventEmitter<boolean>();
   @Output() getSubmitDisabled = new EventEmitter<boolean>();
@@ -89,14 +90,14 @@ export class ModalDetailsFormComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      this.getDogBreeds();
+    this.getDogBreeds();
   }
   createForm(): void {
     this.userDetailsFormGroup = this.fb.group({
-      email: new FormControl('', [
-        Validators.required,
-        // Validators.pattern(/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/),
-      ]),
+      email: new FormControl('', {
+        validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
+        updateOn: 'blur',
+      }),
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       phone: new FormControl('', {
@@ -156,7 +157,7 @@ export class ModalDetailsFormComponent implements OnInit{
 
   // }
   continueClicked(page: string): void {
-    console.warn(this.userDetailsFormGroup)
+    console.warn(this.userDetailsFormGroup);
     // const index = this.pages.indexOf(this.page);
     // this.page = this.pages[index + 1];
     this.page = page;
@@ -232,7 +233,6 @@ export class ModalDetailsFormComponent implements OnInit{
     }
   }
 
-
   // showConfig() {
   //   this.configService.getConfig()
   //     .subscribe((data: Config) => this.config = {
@@ -242,13 +242,13 @@ export class ModalDetailsFormComponent implements OnInit{
   // }
 
   getDogBreeds(): void {
-    this.dogList.push({name:'Mixed breed / Unknown'})
-    this.http.get<any[]>('https://api.thedogapi.com/v1/breeds').subscribe((data) => {
+    this.dogList.push({ name: 'Mixed breed / Unknown' });
+    this.http.get<any[]>('https://api.thedogapi.com/v1/breeds').subscribe(data => {
       data.forEach(dog => {
-        this.dogList.push(dog)
+        this.dogList.push(dog);
       });
       // this.dogList = data;
-      console.warn(this.dogList)
+      console.warn(this.dogList);
     });
   }
 }

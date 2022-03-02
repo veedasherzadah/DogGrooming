@@ -94,6 +94,7 @@ export class ModalContentComponent {
 
   submitClicked(): void {
     console.warn('submit clicked');
+    console.warn(this.child?.userDetailsFormGroup);
     this.navDisabled = true;
     // this.pagesFormGroup.get('page')?.disable;
     // this.child?.submitClicked();

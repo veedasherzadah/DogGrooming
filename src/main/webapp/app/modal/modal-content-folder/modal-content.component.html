@@ -96,7 +96,7 @@
                   Dog Name: <span style="color: gray">{{ personalForm.value.dogName }}</span>
                 </p>
                 <p style="text-align: left">
-                  Dog Breed: <span style="color: gray">{{ personalForm.value.dogSelect }}</span>
+                  Dog Breed: <span style="color: gray">{{ personalForm.value.dogSelect.name }}</span>
                 </p>
               </div>
               <div style="flex: 25%">
@@ -128,7 +128,7 @@
             (click)="submitClicked()"
             [disabled]="submitDisabled"
           >
-            Book Appointment
+            Finalize Appointment
           </button>
         </div>
       </div>
