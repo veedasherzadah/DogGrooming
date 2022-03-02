@@ -22,7 +22,15 @@
         <div style="text-align: left">
           <h4>Phone Number<span style="color: red">*</span></h4>
         </div>
-        <input formControlName="phone" required type="tel" class="form-control" placeholder="(###-###-####)" aria-label="phone" />
+        <input
+          formControlName="phone"
+          required
+          type="tel"
+          class="form-control"
+          placeholder="(###-###-####)"
+          aria-label="phone"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+        />
         <!-- <div *ngIf="showErrors" class="alert alert-danger">
           Phone number is required.
         </div> -->
@@ -34,6 +42,7 @@
           class="alert alert-danger"
         >
           <div *ngIf="userDetailsFormGroup.controls['phone'].errors?.required">Phone number is required.</div>
+          <div *ngIf="userDetailsFormGroup.controls['phone'].errors?.pattern">Invalid phone number pattern.</div>
         </div>
       </div>
       <div class="col">
