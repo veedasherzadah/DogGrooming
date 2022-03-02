@@ -8,7 +8,7 @@ import { ModalDetailsFormComponent } from '../modal-details-folder/modal-details
   templateUrl: './modal-content.component.html',
   styleUrls: ['./modal-content.component.scss'],
 })
-export class ModalContentComponent {
+export class ModalContentComponent implements OnInit{
   buttonDisabled = true;
   submitDisabled = true;
   navDisabled = false;
@@ -36,6 +36,10 @@ export class ModalContentComponent {
       this.pageNav = this.pagesFormGroup.get('page')?.value;
       this.child?.changeModalPage(this.pagesFormGroup.get('page')?.value);
     });
+  }
+  ngOnInit(): void {
+    this.isReview = false;
+    this.isSubmit = false;
   }
 
   createForm(): void {
@@ -87,6 +91,7 @@ export class ModalContentComponent {
     console.warn('review clicked');
     this.navDisabled = true;
     this.isReview = true;
+    this.isSubmit = false
     this.childCopy = this.child;
 
     localStorage.clear
@@ -94,21 +99,7 @@ export class ModalContentComponent {
     this.serviceForm = Object.assign({}, this.child?.servicesFormGroup);
     this.scheduleForm = Object.assign({}, this.child?.calendarFormGroup);
     const date = this.scheduleForm.value.calendar
-    // console.warn(this.scheduleForm.value.calendar)
-    // console.warn(date)
-    // console.warn(date.year)
-    // console.warn(date.month)
-    // console.warn(date.day)
     this.dateSelected = date.format('MMM/DD/YYYY');
-
-    // dayjs('2019-01-25').format('DD/MM/YYYY')
-
-
-    // const jsDate = new Date(date.year, date.month, date.day);
-
-    // console.warn(jsDate)
-
-
   }
 
   submitClicked(): void {

@@ -233,6 +233,7 @@ export class ModalDetailsFormComponent implements OnInit{
         dogSelect: userDetailsFormGroup.dogSelect,
     });
     console.warn('setting dog breed')
+    console.warn(userDetailsFormGroup.dogSelect)
     this.name = userDetailsFormGroup.dogSelect.name
   }
 
