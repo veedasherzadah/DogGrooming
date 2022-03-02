@@ -15,14 +15,20 @@ export class ModalDetailsFormComponent implements OnInit {
 
   date!: { year: number; month: number };
   minDate!: NgbDate;
-  maxDate = new NgbDate(2023, 1, 1);
+  maxDate!: NgbDate;
+
   calendarValid = false;
+  editClicked = false;
 
   pages = ['enterDetails', 'selectService', 'dateTime'];
   page = this.pages[0];
 
   dogList: any[] = [];
   name = '';
+
+  selectedDay!: NgbDateStruct;
+  now = new Date();
+  model!: Date;
 
   @Output() getButtonDisabled = new EventEmitter<boolean>();
   @Output() getSubmitDisabled = new EventEmitter<boolean>();
@@ -51,9 +57,14 @@ export class ModalDetailsFormComponent implements OnInit {
     { name: '1:30 pm', value: '1:30pm' },
   ];
   constructor(private fb: FormBuilder, private calendar: NgbCalendar, private http: HttpClient) {
+    console.warn('in constructor');
     this.createForm();
-    this.minDate = calendar.getToday();
 
+    if (localStorage.getItem('userDetailsFormGroup')) {
+      this.setForms();
+    }
+    this.minDate = calendar.getToday();
+    this.maxDate = calendar.getNext(this.minDate, 'm', 6);
     this.userDetailsFormGroup.statusChanges.subscribe(res => {
       // console.warn(this.userDetailsFormGroup)
       this.getButtonDisabled.emit(res === 'INVALID');
@@ -61,9 +72,7 @@ export class ModalDetailsFormComponent implements OnInit {
     });
 
     this.servicesFormGroup.statusChanges.subscribe(res => {
-      console.warn(this.servicesFormGroup.get('service')?.value);
       if (this.servicesFormGroup.get('service')?.value !== '') {
-        console.warn('shouldnot be disabled');
         this.getButtonDisabled.emit(false);
       }
       // const checkArray: FormArray = this.servicesFormGroup.get('checkArray') as FormArray;
@@ -76,9 +85,8 @@ export class ModalDetailsFormComponent implements OnInit {
       this.checkSubmitDisabled();
     });
     this.calendarFormGroup.statusChanges.subscribe(res => {
-      console.warn(this.calendarFormGroup.get('calendar')?.value);
-      console.warn(this.calendarFormGroup.get('time')?.value);
-      if (this.calendarFormGroup.get('calendar')?.value !== null) {
+      console.warn('getting calendar');
+      if (this.calendarFormGroup.get('calendar')?.value !== undefined) {
         this.calendarValid = true;
       }
 
@@ -91,21 +99,26 @@ export class ModalDetailsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDogBreeds();
+    // this.editClicked = false;
+    console.warn('in ngoninit');
+    localStorage.clear();
   }
+
   createForm(): void {
+    console.warn('got in createForm');
     this.userDetailsFormGroup = this.fb.group({
-      email: new FormControl('', {
+      email: new FormControl(null, {
         validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
         updateOn: 'blur',
       }),
-      firstName: new FormControl('', [Validators.required]),
-      lastName: new FormControl('', [Validators.required]),
-      phone: new FormControl('', {
+      firstName: new FormControl(null, [Validators.required]),
+      lastName: new FormControl(null, [Validators.required]),
+      phone: new FormControl(null, {
         validators: [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')],
         updateOn: 'blur',
       }),
-      dogName: new FormControl('', [Validators.required]),
-      dogSelect: new FormControl('', [Validators.required]),
+      dogName: new FormControl(null, [Validators.required]),
+      dogSelect: new FormControl(null, [Validators.required]),
     });
 
     this.servicesFormGroup = this.fb.group({
@@ -119,49 +132,9 @@ export class ModalDetailsFormComponent implements OnInit {
     });
   }
 
-  //  ngAfterViewInit(): void {
-  //    console.warn("in here")
-  //    if(this.page === this.pages[0]){
-  //     this.userDetailsFormGroup.statusChanges.subscribe(res => {
-  //       // console.warn(this.userDetailsFormGroup)
-  //       this.getButtonDisabled.emit(res === 'INVALID')
-  //     })
-  //    }
-
-  //    if(this.page === this.pages[1]){
-  //     this.servicesFormGroup.statusChanges.subscribe(res => {
-  //       console.warn(this.servicesFormGroup.get('service')?.value)
-  //       if(this.servicesFormGroup.get('service')?.value !== '') {
-  //         this.getButtonDisabled.emit(false);
-  //       }
-  //       // const checkArray: FormArray = this.servicesFormGroup.get('checkArray') as FormArray;
-  //       // if(checkArray.length === 0){
-  //       //   this.getButtonDisabled.emit(true);
-  //       // }
-  //       // else {
-  //       //   this.getButtonDisabled.emit(false);
-  //       // }
-  //     })
-  //    }
-
-  //    if(this.page === this.pages[2]){
-  //     this.calendarFormGroup.statusChanges.subscribe(res => {
-  //       console.warn(this.calendarFormGroup.get('calendar')?.value);
-  //       console.warn(this.calendarFormGroup.get('time')?.value);
-
-  //       if(this.calendarFormGroup.get('calendar')?.value !== null && this.calendarFormGroup.get('time')?.value !== '') {
-  //         this.getButtonDisabled.emit(false);
-  //       }
-  //     })
-  //    }
-
-  // }
   continueClicked(page: string): void {
-    console.warn(this.userDetailsFormGroup);
-    // const index = this.pages.indexOf(this.page);
-    // this.page = this.pages[index + 1];
     this.page = page;
-
+    console.warn(this.page);
     this.checkStatusOfContinue();
   }
 
@@ -196,19 +169,15 @@ export class ModalDetailsFormComponent implements OnInit {
   }
 
   checkStatusOfContinue(): void {
-    console.warn('checking status of continue');
-
     console.warn(this.page);
     this.getButtonDisabled.emit(true);
 
     if (this.page === this.pages[0]) {
-      console.warn(this.userDetailsFormGroup.valid);
       if (this.userDetailsFormGroup.valid) {
         this.getButtonDisabled.emit(false);
       }
     }
     if (this.page === this.pages[1]) {
-      console.warn('in page 1');
       if (this.servicesFormGroup.get('service')?.value !== '') {
         this.getButtonDisabled.emit(false);
       }
@@ -233,14 +202,6 @@ export class ModalDetailsFormComponent implements OnInit {
     }
   }
 
-  // showConfig() {
-  //   this.configService.getConfig()
-  //     .subscribe((data: Config) => this.config = {
-  //         demoUrl: data['demoUrl'],
-  //         filename:  data['filename']
-  //     });
-  // }
-
   getDogBreeds(): void {
     this.dogList.push({ name: 'Mixed breed / Unknown' });
     this.http.get<any[]>('https://api.thedogapi.com/v1/breeds').subscribe(data => {
@@ -248,7 +209,53 @@ export class ModalDetailsFormComponent implements OnInit {
         this.dogList.push(dog);
       });
       // this.dogList = data;
-      console.warn(this.dogList);
+      // console.warn(this.dogList)
     });
+  }
+
+  setForms(): void {
+    console.warn('resetting forms');
+    this.patchUserDetailsFormGroup(JSON.parse(localStorage.getItem('userDetailsFormGroup')!));
+    this.patchServicesFormGroup(JSON.parse(localStorage.getItem('serviceFormGroup')!));
+    this.patchCalendarFormGroup(JSON.parse(localStorage.getItem('calendarFormGroup')!));
+  }
+
+  patchUserDetailsFormGroup(userDetailsFormGroup: any): void {
+    console.warn(userDetailsFormGroup);
+    this.userDetailsFormGroup.patchValue({
+      email: userDetailsFormGroup.email,
+      firstName: userDetailsFormGroup.firstName,
+      lastName: userDetailsFormGroup.lastName,
+      phone: userDetailsFormGroup.phone,
+      dogName: userDetailsFormGroup.dogName,
+      dogSelect: userDetailsFormGroup.dogSelect,
+    });
+    console.warn('setting dog breed');
+    console.warn(userDetailsFormGroup.dogSelect);
+    this.name = userDetailsFormGroup.dogSelect.name;
+  }
+
+  patchServicesFormGroup(servicesFormGroup: any): void {
+    this.servicesFormGroup.patchValue({
+      service: servicesFormGroup.service,
+    });
+  }
+
+  patchCalendarFormGroup(calendarFormGroup: any): void {
+    this.calendarFormGroup.patchValue({
+      calendar: calendarFormGroup.calendar,
+      time: calendarFormGroup.time,
+    });
+    this.model = calendarFormGroup.calendar;
+    console.warn(this.model);
+    // this.selectedDay = calendarFormGroup.calendar
+    // currentMon
+    // <div ngbDatepickerDayView [date]="date" [currentMonth]="currentMonth" [selected]="selected" [disabled]="disabled"></div>
+
+    // console.warn(this.editDate)
+  }
+
+  regenerateForm(): void {
+    console.warn('in regnerate form');
   }
 }

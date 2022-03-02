@@ -23,7 +23,7 @@
                       </li> -->
 
                   <div class="side-nav" *ngIf="!navDisabled">
-                    <form [formGroup]="pagesFormGroup" novalidate>
+                    <fieldset [disabled]="true" [formGroup]="pagesFormGroup" novalidate>
                       <div class="row">
                         <label>
                           <input type="radio" value="enterDetails" formControlName="page" />
@@ -42,7 +42,7 @@
                           <span>Date and Time</span>
                         </label>
                       </div>
-                    </form>
+                    </fieldset>
                   </div>
 
                   <!-- <li class="nav-item">
@@ -69,51 +69,101 @@
                 ></jhi-modal-details-form>
               </div>
             </div>
-          </div>
-          <div *ngIf="navDisabled" class="thank-you">
-            <h2 style="text-align: center">Appointment successfully booked!</h2>
-            <br />
-            <h1 style="text-align: left">Booking Details</h1>
-            <div style="display: flex">
-              <div style="flex: 25%">
-                <p style="text-align: left">
-                  First Name: <span style="color: gray">{{ personalForm.value.firstName }}</span>
-                </p>
-                <p style="text-align: left">
-                  Last Name: <span style="color: gray">{{ personalForm.value.lastName }}</span>
-                </p>
-              </div>
-              <div style="flex: 25%">
-                <p style="text-align: left">
-                  Email: <span style="color: gray">{{ personalForm.value.email }}</span>
-                </p>
-                <p style="text-align: left">
-                  Phone: <span style="color: gray">{{ personalForm.value.phone }}</span>
-                </p>
-              </div>
-              <div style="flex: 25%">
-                <p style="text-align: left">
-                  Dog Name: <span style="color: gray">{{ personalForm.value.dogName }}</span>
-                </p>
-                <p style="text-align: left">
-                  Dog Breed: <span style="color: gray">{{ personalForm.value.dogSelect.name }}</span>
-                </p>
-              </div>
-              <div style="flex: 25%">
-                <p style="text-align: left">
-                  Service: <span style="color: gray">{{ serviceForm.value.service }}</span>
-                </p>
-                <p style="text-align: left">
-                  Date/Time: <span style="color: gray">{{ scheduleForm.value.calendar }} @ {{ scheduleForm.value.time }}</span>
-                </p>
+
+            <div *ngIf="isReview && navDisabled" class="thank-you">
+              <h2 style="text-align: center; padding-top: 100px">Please Review Your Appointment</h2>
+              <br />
+              <h1 style="text-align: left; padding-top: 30px; padding-bottom: 30px">Booking Details:</h1>
+              <div style="display: flex">
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    First Name: <span style="color: gray">{{ personalForm.value.firstName }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Last Name: <span style="color: gray">{{ personalForm.value.lastName }}</span>
+                  </p>
+                </div>
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    Email: <span style="color: gray">{{ personalForm.value.email }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Phone: <span style="color: gray">{{ personalForm.value.phone }}</span>
+                  </p>
+                </div>
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    Dog Name: <span style="color: gray">{{ personalForm.value.dogName }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Dog Breed: <span style="color: gray">{{ personalForm.value.dogSelect.name }}</span>
+                  </p>
+                </div>
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    Service: <span style="color: gray">{{ serviceForm.value.service }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Date/Time: <span style="color: gray">{{ dateSelected }} @ {{ scheduleForm.value.time }}</span>
+                  </p>
+                </div>
               </div>
             </div>
-            <h2 style="text-align: center">Thanks for booking an appointment,</h2>
-            <h2 style="text-align: center">See you soon!</h2>
+
+            <div *ngIf="isSubmit && navDisabled" class="thank-you">
+              <h2 style="text-align: center; padding-top: 100px">Appointment successfully booked!</h2>
+              <br />
+              <h1 style="text-align: left; padding-bottom: 30px">Booking Details:</h1>
+              <div style="display: flex">
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    First Name: <span style="color: gray">{{ personalForm.value.firstName }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Last Name: <span style="color: gray">{{ personalForm.value.lastName }}</span>
+                  </p>
+                </div>
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    Email: <span style="color: gray">{{ personalForm.value.email }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Phone: <span style="color: gray">{{ personalForm.value.phone }}</span>
+                  </p>
+                </div>
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    Dog Name: <span style="color: gray">{{ personalForm.value.dogName }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Dog Breed: <span style="color: gray">{{ personalForm.value.dogSelect.name }}</span>
+                  </p>
+                </div>
+                <div style="flex: 25%">
+                  <p style="text-align: left">
+                    Service: <span style="color: gray">{{ serviceForm.value.service }}</span>
+                  </p>
+                  <p style="text-align: left">
+                    Date/Time: <span style="color: gray">{{ dateSelected }} @ {{ scheduleForm.value.time }}</span>
+                  </p>
+                </div>
+              </div>
+              <h1 style="padding-top: 30px">Thank you for booking an appointment with us,</h1>
+              <h1>See you soon!</h1>
+            </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button *ngIf="pageNav != 'enterDetails' && !navDisabled" class="modal-button back-button" (click)="backClicked()">Back</button>
+
+        <div *ngIf="isReview" class="modal-footer">
+          <button class="modal-button back-button" (click)="editBackClicked()">Edit Appointment</button>
+
+          <button class="modal-button continue-button review-button" (click)="submitClicked()">Confirm Appointment</button>
+        </div>
+
+        <div *ngIf="!isReview" class="modal-footer">
+          <button *ngIf="pageNav != 'enterDetails' && !navDisabled && !isReview" class="modal-button back-button" (click)="backClicked()">
+            Back
+          </button>
           <button
             *ngIf="pageNav != 'dateTime'"
             class="modal-button continue-button"
@@ -124,11 +174,11 @@
           </button>
           <button
             *ngIf="pageNav == 'dateTime' && !navDisabled"
-            class="modal-button continue-button"
-            (click)="submitClicked()"
+            class="modal-button continue-button review-button"
+            (click)="reviewClicked()"
             [disabled]="submitDisabled"
           >
-            Finalize Appointment
+            Review Appointment
           </button>
         </div>
       </div>

@@ -15,6 +15,10 @@
   // float:left;
 }
 
+.review-button {
+  font-size: 20px;
+}
+
 .modal-body {
   overflow-y: scroll;
 }
@@ -46,21 +50,19 @@
   .row {
     display: grid;
   }
-  input:hover + span {
-    color: #cf7a00;
-  }
   input:checked + span {
     color: #cf7a00;
   }
 }
 
 .modal-footer {
-  justify-content: normal;
+  // justify-content: normal;
+  border-top: none;
 }
 
 .thank-you {
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
   justify-content: center;
   align-items: center;
   height: 200px;
