@@ -15,6 +15,10 @@
   // float:left;
 }
 
+.review-button {
+  font-size: 20px;
+}
+
 .modal-body {
   overflow-y: scroll;
 }
@@ -55,7 +59,8 @@
 }
 
 .modal-footer {
-  justify-content: normal;
+  // justify-content: normal;
+  border-top: none;
 }
 
 .thank-you {
@@ -65,3 +70,4 @@
   align-items: center;
   height: 200px;
 }
+

@@ -111,26 +111,6 @@
           <h4>Dog Breed<span style="color: red">*</span></h4>
         </div>
 
-
-        <!-- <input list="dogs"  formControlName="dogSelect" name="dog-select" required>
-          <datalist id="dogs" class="selectpicker">
-            <option 
-            *ngFor="let dog of dogList" 
-            [value]="dog.name">
-            {{dog.name}}
-        </option>
-          </datalist>  -->
-
-        <!-- <select class="selectpicker" data-live-search="true" formControlName="dogSelect" name="dog-select" required>
-          <option value="" disabled selected>Breed</option>
-          <option 
-            *ngFor="let dog of dogList" 
-            [value]="dog.name">
-            {{dog.name}}
-        </option>
-        </select> -->
-
-
         <ng-autocomplete class="select" #ngAutoCompleteStatic
           [data]="dogList"
           formControlName="dogSelect"
@@ -153,9 +133,6 @@
           <div [innerHTML]="notFound"></div>
         </ng-template>
 
-
-
-
         <div
           *ngIf="
             userDetailsFormGroup.controls['dogSelect'].invalid &&
@@ -175,9 +152,6 @@
   <form [formGroup]="servicesFormGroup" novalidate>
     <div class="service-buttons">
       <div *ngFor="let service of Services; let i = index" class="service-button">
-        <!-- <span class="form-check"> -->
-        <!-- <input class="form-check-input" type="checkbox" [value]="service.value" (change)="onCheckboxChange($event)"> -->
-
         <label>
           <input type="radio" formControlName="service" value="{{ service.value }}" />
           <span>
@@ -186,15 +160,6 @@
             <div style="color: #acacac">{{ service.desc }}</div>
           </span>
         </label>
-
-        <!-- <input class="form-check-input" type="radio" formControlName="service" value={{service.value}} > -->
-        <!-- <label class="form-check-label" for="flexCheckDefault">
-              {{service.label}}
-            </label> -->
-        <!-- <span class="form-check-label">{{service.label}}</span>
-              <div>{{service.bio}}</div> -->
-
-        <!-- </span> -->
       </div>
     </div>
   </form>
@@ -204,8 +169,14 @@
   <h2>Select a date and time</h2>
   <form [formGroup]="calendarFormGroup" novalidate>
     <div class="calendar">
-      <ngb-datepicker #dp formControlName="calendar" [minDate]="minDate" (navigate)="date = $event.next"></ngb-datepicker>
+      <ngb-datepicker #dp formControlName="calendar" [(ngModel)]="model" 
+      [minDate]="minDate" [maxDate]="maxDate"  (navigate)="date = $event.next"></ngb-datepicker>
     </div>
+
+    <div *ngIf="model" class="selected-date">
+      Date selected: {{model | date:'mediumDate'}}
+    </div>
+  
 
     <div *ngIf="calendarValid">
       <h3>Morning</h3>
@@ -230,8 +201,3 @@
     </div>
   </form>
 </div>
-<!-- 
-    <div *ngIf="page==='submitted'">
-      <h1>Thank you for booking an appointment with us,</h1>
-      <h2>See you soon!</h2>
-    </div> -->

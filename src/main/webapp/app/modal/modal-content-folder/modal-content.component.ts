@@ -12,10 +12,13 @@ export class ModalContentComponent {
   buttonDisabled = true;
   submitDisabled = true;
   navDisabled = false;
+  isReview = false;
+  isSubmit = false;
   display = 'none';
   personalForm: any;
   serviceForm: any;
   scheduleForm: any;
+  dateSelected= '';
 
   pages = ['enterDetails', 'selectService', 'dateTime'];
   pageNav = this.pages[0];
@@ -24,11 +27,12 @@ export class ModalContentComponent {
 
   @ViewChild('formComponent')
   private child: ModalDetailsFormComponent | undefined;
+  private childCopy: ModalDetailsFormComponent | undefined;
+
 
   constructor(private fb: FormBuilder) {
     this.createForm();
     this.pagesFormGroup.statusChanges.subscribe(res => {
-      // console.warn(this.pagesFormGroup.get('page')?.value)
       this.pageNav = this.pagesFormGroup.get('page')?.value;
       this.child?.changeModalPage(this.pagesFormGroup.get('page')?.value);
     });
@@ -39,7 +43,6 @@ export class ModalContentComponent {
       page: new FormControl(
         {
           value: this.pageNav,
-          // disabled: this.navDisabled
         },
         [Validators.required]
       ),
@@ -62,9 +65,7 @@ export class ModalContentComponent {
   onCloseHandled(): void {
     this.display = 'none';
     this.buttonDisabled = true;
-    // this.submitDisabled = true;
     this.navDisabled = false;
-    // this.pageNav = this.pages[0];
   }
 
   backClicked(): void {
@@ -72,33 +73,67 @@ export class ModalContentComponent {
     const index = this.pages.indexOf(this.pageNav);
     this.pageNav = this.pages[index - 1];
     this.pagesFormGroup.get('page')?.setValue(this.pageNav);
-    // console.warn(this.pageNav);
     this.child?.continueClicked(this.pageNav);
   }
   continueClicked(): void {
-    // console.warn(this.pageNav);
-
     const index = this.pages.indexOf(this.pageNav);
     this.pageNav = this.pages[index + 1];
     this.pagesFormGroup.get('page')?.setValue(this.pageNav);
-    // console.warn(this.pageNav);
     this.child?.continueClicked(this.pageNav);
   }
 
-  // isNavDisabled(page:string):boolean {
-  //   if(this.child !== undefined) {
-  //     return this.child.isNavDisabled(page);
-  //   }
-  //   return false;
-  // }
+
+  reviewClicked(): void {
+    console.warn('review clicked');
+    this.navDisabled = true;
+    this.isReview = true;
+    this.childCopy = this.child;
+
+    localStorage.clear
+    this.personalForm = Object.assign({}, this.child?.userDetailsFormGroup);
+    this.serviceForm = Object.assign({}, this.child?.servicesFormGroup);
+    this.scheduleForm = Object.assign({}, this.child?.calendarFormGroup);
+    const date = this.scheduleForm.value.calendar
+    // console.warn(this.scheduleForm.value.calendar)
+    // console.warn(date)
+    // console.warn(date.year)
+    // console.warn(date.month)
+    // console.warn(date.day)
+    this.dateSelected = date.format('MMM/DD/YYYY');
+
+    // dayjs('2019-01-25').format('DD/MM/YYYY')
+
+
+    // const jsDate = new Date(date.year, date.month, date.day);
+
+    // console.warn(jsDate)
+
+
+  }
 
   submitClicked(): void {
     console.warn('submit clicked');
     this.navDisabled = true;
-    // this.pagesFormGroup.get('page')?.disable;
-    // this.child?.submitClicked();
-    this.personalForm = this.child?.userDetailsFormGroup;
-    this.serviceForm = this.child?.servicesFormGroup;
-    this.scheduleForm = this.child?.calendarFormGroup;
+    this.isReview = false;
+    this.isSubmit = true;
+    localStorage.clear();
+  }
+
+  editBackClicked(): void {
+    console.warn('edit back clicked')
+    // console.warn(this.personalForm)
+    localStorage.setItem('userDetailsFormGroup', JSON.stringify(this.personalForm.value));
+    localStorage.setItem('serviceFormGroup', JSON.stringify(this.serviceForm.value));
+    localStorage.setItem('calendarFormGroup', JSON.stringify(this.scheduleForm.value));
+
+    // localStorage.setItem('userDetailsFormGroup', JSON.stringify(personal));
+
+    this.navDisabled = false;
+    this.isReview = false;
+    this.isSubmit = false;
+    this.pageNav = this.pages[0];
+    this.pagesFormGroup.get('page')?.setValue(this.pageNav);
+    // this.childCopy?.setForms();
+    this.child?.regenerateForm();
   }
 }
