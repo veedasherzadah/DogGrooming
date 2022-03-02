@@ -90,7 +90,10 @@ export class ModalDetailsFormComponent {
       ]),
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
-      phone: new FormControl('', [Validators.required]),
+      phone: new FormControl('', {
+        validators: [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')],
+        updateOn: 'blur',
+      }),
       dogName: new FormControl('', [Validators.required]),
       dogSelect: new FormControl('', [Validators.required]),
     });
