@@ -136,7 +136,6 @@ export class ModalDetailsFormComponent implements OnInit{
 
   continueClicked(page: string): void {
     this.page = page;
-    console.warn(this.page)
     this.checkStatusOfContinue();
   }
 
@@ -171,7 +170,6 @@ export class ModalDetailsFormComponent implements OnInit{
   }
 
   checkStatusOfContinue(): void {
-    console.warn(this.page);
     this.getButtonDisabled.emit(true);
 
     if (this.page === this.pages[0]) {
@@ -210,8 +208,6 @@ export class ModalDetailsFormComponent implements OnInit{
       data.forEach(dog => {
         this.dogList.push(dog)
       });
-      // this.dogList = data;
-      // console.warn(this.dogList)
     });
   }
 
@@ -223,7 +219,6 @@ export class ModalDetailsFormComponent implements OnInit{
   }
 
   patchUserDetailsFormGroup(userDetailsFormGroup:any) : void {
-    console.warn(userDetailsFormGroup)
     this.userDetailsFormGroup.patchValue({
         email: userDetailsFormGroup.email,
         firstName: userDetailsFormGroup.firstName,
@@ -232,9 +227,12 @@ export class ModalDetailsFormComponent implements OnInit{
         dogName: userDetailsFormGroup.dogName,
         dogSelect: userDetailsFormGroup.dogSelect,
     });
-    console.warn('setting dog breed')
-    console.warn(userDetailsFormGroup.dogSelect)
-    this.name = userDetailsFormGroup.dogSelect.name
+    if(userDetailsFormGroup.dogSelect.name === undefined) {
+      this.name = userDetailsFormGroup.dogSelect
+    }
+    else{
+      this.name = userDetailsFormGroup.dogSelect.name
+    }
   }
 
   patchServicesFormGroup(servicesFormGroup:any) : void {
@@ -249,12 +247,6 @@ export class ModalDetailsFormComponent implements OnInit{
       time: calendarFormGroup.time
     })
     this.model = calendarFormGroup.calendar
-    console.warn(this.model)
-    // this.selectedDay = calendarFormGroup.calendar
-    // currentMon
-    // <div ngbDatepickerDayView [date]="date" [currentMonth]="currentMonth" [selected]="selected" [disabled]="disabled"></div> 
-
-    // console.warn(this.editDate)
   }
 
   regenerateForm(): void {

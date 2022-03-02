@@ -19,6 +19,7 @@ export class ModalContentComponent implements OnInit{
   serviceForm: any;
   scheduleForm: any;
   dateSelected= '';
+  dogSelected = '';
 
   pages = ['enterDetails', 'selectService', 'dateTime'];
   pageNav = this.pages[0];
@@ -73,7 +74,6 @@ export class ModalContentComponent implements OnInit{
   }
 
   backClicked(): void {
-    console.warn('back clicked');
     const index = this.pages.indexOf(this.pageNav);
     this.pageNav = this.pages[index - 1];
     this.pagesFormGroup.get('page')?.setValue(this.pageNav);
@@ -100,10 +100,15 @@ export class ModalContentComponent implements OnInit{
     this.scheduleForm = Object.assign({}, this.child?.calendarFormGroup);
     const date = this.scheduleForm.value.calendar
     this.dateSelected = date.format('MMM/DD/YYYY');
+    if(this.child?.userDetailsFormGroup.value.dogSelect.name === undefined){
+      this.dogSelected = this.child?.userDetailsFormGroup.value.dogSelect
+    }
+    else {
+      this.dogSelected = this.child.userDetailsFormGroup.value.dogSelect.name
+    }
   }
 
   submitClicked(): void {
-    console.warn('submit clicked');
     this.navDisabled = true;
     this.isReview = false;
     this.isSubmit = true;
@@ -111,8 +116,6 @@ export class ModalContentComponent implements OnInit{
   }
 
   editBackClicked(): void {
-    console.warn('edit back clicked')
-    // console.warn(this.personalForm)
     localStorage.setItem('userDetailsFormGroup', JSON.stringify(this.personalForm.value));
     localStorage.setItem('serviceFormGroup', JSON.stringify(this.serviceForm.value));
     localStorage.setItem('calendarFormGroup', JSON.stringify(this.scheduleForm.value));
