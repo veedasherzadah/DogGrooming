@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
@@ -26,15 +26,19 @@ export class ModalDetailsFormComponent implements OnInit {
 
   dogList: any[] = [];
   name = '';
+  options: string[] = ['Delhi', 'Mumbai', 'Banglore'];
 
   selectedDay!: NgbDateStruct;
   now = new Date();
   model!: Date;
 
+  // xIcon: any;
+
   @Output() getButtonDisabled = new EventEmitter<boolean>();
   @Output() getSubmitDisabled = new EventEmitter<boolean>();
-  @ViewChild('auto') auto: any;
-  // @HostListener('document:click', ['$event'])
+  // @ViewChild('auto') auto: any;
+
+
 
 
   public keyword = 'name';
@@ -97,33 +101,97 @@ export class ModalDetailsFormComponent implements OnInit {
       }
       this.checkSubmitDisabled();
     });
-    this.getScrollingElement();
+
+    // document.getElementById("someid").addEventListener('click',someEventHander.bind(event,'param1','param2'), false);
+    // const element = document.getElementById("dog-drop-down");
+    // element?.addEventListener("click", this.dropDownClick());
   }
 
   ngOnInit(): void {
     this.getDogBreeds();
     // this.editClicked = false;
-    console.warn('in ngoninit');
     localStorage.clear();
+
   }
 
-  getScrollingElement(): void
-  // Element 
-  {
-    console.warn(document.scrollingElement);
-    console.warn(document.documentElement);
+  ngAfterViewInit() : void {
+
+    const largeElement = document.getElementById("large-dog-drop-down");
+    // this.xIcon  = document.getElementById("bottomAnchor");
+
+
+    largeElement?.addEventListener("click", function() {
+      const objDiv = document.getElementById("bottomAnchor");
+      if(objDiv)
+      {
+        console.warn('in objDiv')
+        objDiv.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        // objDiv.scrollTop = objDiv.scrollHeight;
+      }
+    });
+
   }
 
-  onClick(event: any): void {
-    console.warn(event)
-      // if (!event.target.attributes['autocomplete'] || event.target.attributes['autocomplete'].name !== 'autocomplete') 
-      // {
-      //   this.auto.close();
-      // }
-   }
+  selectEvent($event: any): void {
+    console.warn('in selected')
+    this.setxIconListener();
+  }
+
+  setxIconListener(): void {
+
+    const xIcon = document.getElementsByClassName('material-icons close');
+    console.warn(xIcon)
+
+    setTimeout(() => {
+      
+      xIcon[0].addEventListener("click", function() {
+        console.warn('clicked x')
+
+        document.getElementById("large-dog-drop-down")?.focus;
+
+        // const objDiv = document.getElementById("bottomAnchor");
+        // if(objDiv)
+        // {
+        //   console.warn('in objDiv')
+        //   objDiv.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        //   // objDiv.scrollTop = objDiv.scrollHeight;
+        // }
+      });
+      
+    }, 1000);
+
+
+
+  }
+
+  // onFocused($event: any): void {
+  //   console.warn('in focus')
+
+  //   const objDiv = document.getElementById("bottomAnchor");
+  //   if(objDiv)
+  //   {
+  //     console.warn('in objDiv')
+  //     objDiv.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  //     // objDiv.scrollTop = objDiv.scrollHeight;
+  //   }
+
+  // }
+
+  // searchCleared(): void {
+  //   console.warn('in cleared')
+    
+  //   const objDiv = document.getElementById("bottomAnchor");
+  //   if(objDiv)
+  //   {
+  //     console.warn('in objDiv')
+  //     objDiv.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  //     // objDiv.scrollTop = objDiv.scrollHeight;
+  //   }
+
+  // }
+
 
   createForm(): void {
-    console.warn('got in createForm');
     this.userDetailsFormGroup = this.fb.group({
       email: new FormControl(null, {
         validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],

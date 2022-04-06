@@ -1,4 +1,4 @@
-<div id="user-details" *ngIf="page === pages[0]">
+<div id="user-details" *ngIf="page === pages[0]" #modal>
   <h2>Your Details</h2>
   <form [formGroup]="userDetailsFormGroup" novalidate>
     <div class="row">
@@ -107,53 +107,56 @@
           <div *ngIf="userDetailsFormGroup.controls['dogName'].errors?.required">Dog Name is required.</div>
         </div>
       </div>
-      <div class="col drop-down">
-        <div style="text-align: left">
-          <h4>Dog Breed<span style="color: red">*</span></h4>
-        </div>
 
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of dogList" [value]="option">
-            {{option}}
-          </mat-option>
-        </mat-autocomplete>
+      <div class="col">
+        <div class="large-drop-down">
+          <div style="text-align: left">
+            <h4>Dog Breed<span style="color: red">*</span></h4>
+          </div>
 
-        <!-- <ng-autocomplete #auto
-          class="select"
-          #ngAutoCompleteStatic
-          [data]="dogList"
-          formControlName="dogSelect"
-          name="dog-select"
-          [(ngModel)]="name"
-          [initialValue]=""
-          placeholder="Select or Search Dog Breed"
-          [searchKeyword]="keyword"
-          notFoundText="Not found"
-          [itemTemplate]="itemTemplateStatic"
-          [notFoundTemplate]="notFoundTemplate"
-        >
-        </ng-autocomplete>
+          <div id="large-dog-drop-down">
+            <ng-autocomplete #auto
+              class="select"
+              #ngAutoCompleteStatic
+              [data]="dogList"
+              formControlName="dogSelect"
+              name="dog-select"
+              [(ngModel)]="name"
+              [initialValue]=""
+              placeholder="Select or Search Dog Breed"
+              [searchKeyword]="keyword"
+              notFoundText="Not found"
+              [itemTemplate]="itemTemplateStatic"
+              [notFoundTemplate]="notFoundTemplate"
+              (selected)='selectEvent($event)'
 
-        <ng-template #itemTemplateStatic let-item>
-          <a [innerHTML]="item.name"></a>
-        </ng-template>
+            >
+            </ng-autocomplete>
 
-        <ng-template #notFoundTemplate let-notFound>
-          <div [innerHTML]="notFound"></div>
-        </ng-template> -->
+            <ng-template #itemTemplateStatic let-item id="dogItems">
+              <a [innerHTML]="item.name"></a>
+            </ng-template>
 
-        <div
-          *ngIf="
-            userDetailsFormGroup.controls['dogSelect'].invalid &&
-            (userDetailsFormGroup.controls['dogSelect'].dirty || userDetailsFormGroup.controls['dogSelect'].touched)
-          "
-          class="alert alert-danger"
-        >
-          <div *ngIf="userDetailsFormGroup.controls['dogSelect'].errors?.required">Dog Breed is required.</div>
-        </div>
+            <ng-template #notFoundTemplate let-notFound>
+              <div [innerHTML]="notFound"></div>
+            </ng-template>
+          </div>
+
+          <div
+            *ngIf="
+              userDetailsFormGroup.controls['dogSelect'].invalid &&
+              (userDetailsFormGroup.controls['dogSelect'].dirty || userDetailsFormGroup.controls['dogSelect'].touched)
+            "
+            class="alert alert-danger"
+          >
+            <div *ngIf="userDetailsFormGroup.controls['dogSelect'].errors?.required">Dog Breed is required.</div>
+          </div>
       </div>
     </div>
+    </div>
   </form>
+  <div id="bottomAnchor"></div>
+
 </div>
 
 <div id="services" *ngIf="page === pages[1]">
