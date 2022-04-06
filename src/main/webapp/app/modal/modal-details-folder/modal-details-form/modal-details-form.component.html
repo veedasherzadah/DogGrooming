@@ -1,5 +1,5 @@
 <div id="user-details" *ngIf="page === pages[0]">
-  <h2>Your Details</h2>
+  <h2 class="detailsh2">Your Details</h2>
   <form [formGroup]="userDetailsFormGroup" novalidate>
     <div class="row">
       <div class="col">
@@ -89,8 +89,12 @@
         </div>
       </div>
     </div>
+  </form>
+</div>
 
-    <h2>Dog's Details</h2>
+<div id="dog-details" *ngIf="page === pages[1]">
+  <form [formGroup]="dogDetailsFormGroup" novalidate>
+    <h2 class="detailsh2">Dog's Details</h2>
     <div class="row">
       <div class="col">
         <div style="text-align: left">
@@ -99,12 +103,12 @@
         <input formControlName="dogName" required type="text" class="form-control" placeholder="Name" aria-label="dog-name" />
         <div
           *ngIf="
-            userDetailsFormGroup.controls['dogName'].invalid &&
-            (userDetailsFormGroup.controls['dogName'].dirty || userDetailsFormGroup.controls['dogName'].touched)
+            dogDetailsFormGroup.controls['dogName'].invalid &&
+            (dogDetailsFormGroup.controls['dogName'].dirty || dogDetailsFormGroup.controls['dogName'].touched)
           "
           class="alert alert-danger"
         >
-          <div *ngIf="userDetailsFormGroup.controls['dogName'].errors?.required">Dog Name is required.</div>
+          <div *ngIf="dogDetailsFormGroup.controls['dogName'].errors?.required">Dog Name is required.</div>
         </div>
       </div>
       <div class="col">
@@ -138,19 +142,19 @@
 
         <div
           *ngIf="
-            userDetailsFormGroup.controls['dogSelect'].invalid &&
-            (userDetailsFormGroup.controls['dogSelect'].dirty || userDetailsFormGroup.controls['dogSelect'].touched)
+            dogDetailsFormGroup.controls['dogSelect'].invalid &&
+            (dogDetailsFormGroup.controls['dogSelect'].dirty || dogDetailsFormGroup.controls['dogSelect'].touched)
           "
           class="alert alert-danger"
         >
-          <div *ngIf="userDetailsFormGroup.controls['dogSelect'].errors?.required">Dog Breed is required.</div>
+          <div *ngIf="dogDetailsFormGroup.controls['dogSelect'].errors?.required">Dog Breed is required.</div>
         </div>
       </div>
     </div>
   </form>
 </div>
 
-<div id="services" *ngIf="page === pages[1]">
+<div id="services" *ngIf="page === pages[2]">
   <h2>Select one service<span style="color: red">*</span></h2>
   <form [formGroup]="servicesFormGroup" novalidate>
     <div class="service-buttons">
@@ -168,7 +172,7 @@
   </form>
 </div>
 
-<div id="calendar" *ngIf="page === pages[2]">
+<div id="calendar" *ngIf="page === pages[3]">
   <h2>Select a date and time<span style="color: red">*</span></h2>
   <form [formGroup]="calendarFormGroup" novalidate>
     <div class="calendar">

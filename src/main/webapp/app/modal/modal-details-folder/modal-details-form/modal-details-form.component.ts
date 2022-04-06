@@ -10,6 +10,7 @@ import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap'
 })
 export class ModalDetailsFormComponent implements OnInit {
   userDetailsFormGroup!: FormGroup;
+  dogDetailsFormGroup!: FormGroup;
   servicesFormGroup!: FormGroup;
   calendarFormGroup!: FormGroup;
 
@@ -20,7 +21,7 @@ export class ModalDetailsFormComponent implements OnInit {
   calendarValid = false;
   editClicked = false;
 
-  pages = ['enterDetails', 'selectService', 'dateTime'];
+  pages = ['yourDetails', 'dogDetails', 'selectService', 'dateTime'];
   page = this.pages[0];
 
   dogList: any[] = [];
@@ -68,7 +69,6 @@ export class ModalDetailsFormComponent implements OnInit {
     { name: '1:30 pm', value: '1:30pm' },
   ];
   constructor(private fb: FormBuilder, private calendar: NgbCalendar, private http: HttpClient) {
-    console.warn('in constructor');
     this.createForm();
 
     if (localStorage.getItem('userDetailsFormGroup')) {
@@ -78,6 +78,11 @@ export class ModalDetailsFormComponent implements OnInit {
     this.maxDate = calendar.getNext(this.minDate, 'm', 6);
     this.userDetailsFormGroup.statusChanges.subscribe(res => {
       // console.warn(this.userDetailsFormGroup)
+      this.getButtonDisabled.emit(res === 'INVALID');
+      this.checkSubmitDisabled();
+    });
+
+    this.dogDetailsFormGroup.statusChanges.subscribe(res => {
       this.getButtonDisabled.emit(res === 'INVALID');
       this.checkSubmitDisabled();
     });
@@ -127,6 +132,9 @@ export class ModalDetailsFormComponent implements OnInit {
       phone: new FormControl(null, {
         updateOn: 'blur',
       }),
+    });
+
+    this.dogDetailsFormGroup = this.fb.group({
       dogName: new FormControl(null, [Validators.required]),
       dogSelect: new FormControl(null, [Validators.required]),
     });
@@ -164,14 +172,17 @@ export class ModalDetailsFormComponent implements OnInit {
   }
 
   changeModalPage(pageName: string): void {
-    if (pageName === 'enterDetails') {
+    if (pageName === 'yourDetails') {
       this.page = this.pages[0];
     }
-    if (pageName === 'selectService') {
+    if (pageName === 'dogDetails') {
       this.page = this.pages[1];
     }
-    if (pageName === 'dateTime') {
+    if (pageName === 'selectService') {
       this.page = this.pages[2];
+    }
+    if (pageName === 'dateTime') {
+      this.page = this.pages[3];
     }
 
     this.checkStatusOfContinue();
@@ -181,16 +192,25 @@ export class ModalDetailsFormComponent implements OnInit {
     this.getButtonDisabled.emit(true);
 
     if (this.page === this.pages[0]) {
+      console.warn('in check continue 0')
+      console.warn(this.userDetailsFormGroup)
       if (this.userDetailsFormGroup.valid) {
         this.getButtonDisabled.emit(false);
       }
     }
     if (this.page === this.pages[1]) {
-      if (this.servicesFormGroup.get('service')?.value !== '') {
+      console.warn('in check continue 1')
+      console.warn(this.dogDetailsFormGroup)
+      if (this.dogDetailsFormGroup.valid) {
         this.getButtonDisabled.emit(false);
       }
     }
     if (this.page === this.pages[2]) {
+      if (this.servicesFormGroup.get('service')?.value !== '') {
+        this.getButtonDisabled.emit(false);
+      }
+    }
+    if (this.page === this.pages[3]) {
       if (this.calendarFormGroup.get('calendar')?.value !== null && this.calendarFormGroup.get('time')?.value !== '') {
         this.getButtonDisabled.emit(false);
       }
@@ -200,6 +220,7 @@ export class ModalDetailsFormComponent implements OnInit {
   checkSubmitDisabled(): void {
     if (
       this.userDetailsFormGroup.valid &&
+      this.dogDetailsFormGroup.valid &&
       this.servicesFormGroup.get('service')?.value !== '' &&
       this.calendarFormGroup.get('calendar')?.value !== null &&
       this.calendarFormGroup.get('time')?.value !== ''
@@ -221,24 +242,27 @@ export class ModalDetailsFormComponent implements OnInit {
 
   setForms(): void {
     console.warn('resetting forms');
-    this.patchUserDetailsFormGroup(JSON.parse(localStorage.getItem('userDetailsFormGroup')!));
+    this.patchUserDetailsFormGroup(JSON.parse(localStorage.getItem('userDetailsFormGroup')!), JSON.parse(localStorage.getItem('dogDetailsFormGroup')!));
     this.patchServicesFormGroup(JSON.parse(localStorage.getItem('serviceFormGroup')!));
     this.patchCalendarFormGroup(JSON.parse(localStorage.getItem('calendarFormGroup')!));
   }
 
-  patchUserDetailsFormGroup(userDetailsFormGroup: any): void {
+  patchUserDetailsFormGroup(userDetailsFormGroup: any, dogDetailsFormGroup: any): void {
     this.userDetailsFormGroup.patchValue({
       email: userDetailsFormGroup.email,
       firstName: userDetailsFormGroup.firstName,
       lastName: userDetailsFormGroup.lastName,
-      phone: userDetailsFormGroup.phone,
-      dogName: userDetailsFormGroup.dogName,
-      dogSelect: userDetailsFormGroup.dogSelect,
+      phone: userDetailsFormGroup.phone
     });
-    if (userDetailsFormGroup.dogSelect.name === undefined) {
-      this.name = userDetailsFormGroup.dogSelect;
+
+    this.dogDetailsFormGroup.patchValue({
+      dogName: dogDetailsFormGroup.dogName,
+      dogSelect: dogDetailsFormGroup.dogSelect,
+    });
+    if (dogDetailsFormGroup.dogSelect.name === undefined) {
+      this.name = dogDetailsFormGroup.dogSelect;
     } else {
-      this.name = userDetailsFormGroup.dogSelect.name;
+      this.name = dogDetailsFormGroup.dogSelect.name;
     }
   }
 

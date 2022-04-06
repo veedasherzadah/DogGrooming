@@ -26,8 +26,14 @@
                     <fieldset [disabled]="true" [formGroup]="pagesFormGroup" novalidate>
                       <div class="row">
                         <label>
-                          <input type="radio" value="enterDetails" formControlName="page" />
-                          <span>Enter Details</span>
+                          <input type="radio" value="yourDetails" formControlName="page" />
+                          <span>Your Details</span>
+                        </label>
+                      </div>
+                      <div class="row">
+                        <label>
+                          <input type="radio" value="dogDetails" formControlName="page" />
+                          <span>Dog's Details</span>
                         </label>
                       </div>
                       <div class="row">
@@ -93,7 +99,7 @@
                 </div>
                 <div style="flex: 25%">
                   <p style="text-align: left">
-                    Dog Name: <span style="color: gray">{{ personalForm.value.dogName }}</span>
+                    Dog Name: <span style="color: gray">{{ dogForm.value.dogName }}</span>
                   </p>
                   <p style="text-align: left">
                     Dog Breed: <span style="color: gray">{{ dogSelected }}</span>
