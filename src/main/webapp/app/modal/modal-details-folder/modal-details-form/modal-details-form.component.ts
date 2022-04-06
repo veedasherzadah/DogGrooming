@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,6 +9,7 @@ import { NgbDateStruct, NgbCalendar, NgbDate } from '@ng-bootstrap/ng-bootstrap'
   styleUrls: ['./modal-details-form.component.scss'],
 })
 export class ModalDetailsFormComponent implements OnInit {
+
   userDetailsFormGroup!: FormGroup;
   servicesFormGroup!: FormGroup;
   calendarFormGroup!: FormGroup;
@@ -32,6 +33,9 @@ export class ModalDetailsFormComponent implements OnInit {
 
   @Output() getButtonDisabled = new EventEmitter<boolean>();
   @Output() getSubmitDisabled = new EventEmitter<boolean>();
+  @ViewChild('auto') auto: any;
+  // @HostListener('document:click', ['$event'])
+
 
   public keyword = 'name';
 
@@ -57,7 +61,6 @@ export class ModalDetailsFormComponent implements OnInit {
     { name: '1:30 pm', value: '1:30pm' },
   ];
   constructor(private fb: FormBuilder, private calendar: NgbCalendar, private http: HttpClient) {
-    console.warn('in constructor');
     this.createForm();
 
     if (localStorage.getItem('userDetailsFormGroup')) {
@@ -85,7 +88,6 @@ export class ModalDetailsFormComponent implements OnInit {
       this.checkSubmitDisabled();
     });
     this.calendarFormGroup.statusChanges.subscribe(res => {
-      console.warn('getting calendar');
       if (this.calendarFormGroup.get('calendar')?.value !== undefined) {
         this.calendarValid = true;
       }
@@ -95,6 +97,7 @@ export class ModalDetailsFormComponent implements OnInit {
       }
       this.checkSubmitDisabled();
     });
+    this.getScrollingElement();
   }
 
   ngOnInit(): void {
@@ -103,6 +106,21 @@ export class ModalDetailsFormComponent implements OnInit {
     console.warn('in ngoninit');
     localStorage.clear();
   }
+
+  getScrollingElement(): void
+  // Element 
+  {
+    console.warn(document.scrollingElement);
+    console.warn(document.documentElement);
+  }
+
+  onClick(event: any): void {
+    console.warn(event)
+      // if (!event.target.attributes['autocomplete'] || event.target.attributes['autocomplete'].name !== 'autocomplete') 
+      // {
+      //   this.auto.close();
+      // }
+   }
 
   createForm(): void {
     console.warn('got in createForm');

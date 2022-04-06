@@ -6,9 +6,10 @@ import { ModalContentComponent } from 'app/modal/modal-content-folder/modal-cont
 import { ModalDetailsFormComponent } from './modal-details-folder/modal-details-form/modal-details-form.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
-  imports: [SharedModule, AutocompleteLibModule],
+  imports: [SharedModule, AutocompleteLibModule, MatAutocompleteModule],
   exports: [ModalContentComponent, ModalDetailsFormComponent, NgbDatepickerModule],
   declarations: [ ModalContentComponent, ModalDetailsFormComponent],
 })

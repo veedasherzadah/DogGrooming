@@ -107,12 +107,18 @@
           <div *ngIf="userDetailsFormGroup.controls['dogName'].errors?.required">Dog Name is required.</div>
         </div>
       </div>
-      <div class="col">
+      <div class="col drop-down">
         <div style="text-align: left">
           <h4>Dog Breed<span style="color: red">*</span></h4>
         </div>
 
-        <ng-autocomplete
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of dogList" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-autocomplete>
+
+        <!-- <ng-autocomplete #auto
           class="select"
           #ngAutoCompleteStatic
           [data]="dogList"
@@ -120,7 +126,7 @@
           name="dog-select"
           [(ngModel)]="name"
           [initialValue]=""
-          placeholder="Select Dog Breed"
+          placeholder="Select or Search Dog Breed"
           [searchKeyword]="keyword"
           notFoundText="Not found"
           [itemTemplate]="itemTemplateStatic"
@@ -134,7 +140,7 @@
 
         <ng-template #notFoundTemplate let-notFound>
           <div [innerHTML]="notFound"></div>
-        </ng-template>
+        </ng-template> -->
 
         <div
           *ngIf="
