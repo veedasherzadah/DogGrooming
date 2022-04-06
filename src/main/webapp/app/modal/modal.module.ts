@@ -5,11 +5,12 @@ import { SharedModule } from 'app/shared/shared.module';
 import { ModalContentComponent } from 'app/modal/modal-content-folder/modal-content.component';
 import { ModalDetailsFormComponent } from './modal-details-folder/modal-details-form/modal-details-form.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NgxMaskModule } from 'ngx-mask';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports: [SharedModule, AutocompleteLibModule],
+  imports: [SharedModule, AutocompleteLibModule, NgxMaskModule.forRoot()],
   exports: [ModalContentComponent, ModalDetailsFormComponent, NgbDatepickerModule],
-  declarations: [ ModalContentComponent, ModalDetailsFormComponent],
+  declarations: [ModalContentComponent, ModalDetailsFormComponent],
 })
 export class ModalModule {}

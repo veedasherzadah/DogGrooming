@@ -43,7 +43,18 @@ export class ModalDetailsFormComponent implements OnInit {
       value: 'halfCut',
       desc: 'Clippers and scissoring used to trim hair to 1/2 an inch or longer.',
     },
-    { label: 'Bath and Cut', bio: '$60.00 - 1 Hour', value: 'bathCut', desc: 'A full body bath followed by a Half Cut.' },
+    {
+      label: 'Bath',
+      bio: '$40.00 - 30 Minutes',
+      value: 'bath',
+      desc: 'A full body bath with shampoo and hair drying.',
+    },
+    {
+      label: 'Bath and Cut',
+      bio: '$60.00 - 1 Hour',
+      value: 'bathCut',
+      desc: 'A full body bath followed by a Half Cut; trim hair to 1/2 an inch or longer.',
+    },
   ];
 
   MorningButtons: Array<any> = [
@@ -114,7 +125,6 @@ export class ModalDetailsFormComponent implements OnInit {
       firstName: new FormControl(null, [Validators.required]),
       lastName: new FormControl(null, [Validators.required]),
       phone: new FormControl(null, {
-        validators: [Validators.required, Validators.pattern('[0-9]{3}-[0-9]{3}-[0-9]{4}')],
         updateOn: 'blur',
       }),
       dogName: new FormControl(null, [Validators.required]),
@@ -216,7 +226,7 @@ export class ModalDetailsFormComponent implements OnInit {
     this.patchCalendarFormGroup(JSON.parse(localStorage.getItem('calendarFormGroup')!));
   }
 
-  patchUserDetailsFormGroup(userDetailsFormGroup:any) : void {
+  patchUserDetailsFormGroup(userDetailsFormGroup: any): void {
     this.userDetailsFormGroup.patchValue({
       email: userDetailsFormGroup.email,
       firstName: userDetailsFormGroup.firstName,
@@ -225,11 +235,10 @@ export class ModalDetailsFormComponent implements OnInit {
       dogName: userDetailsFormGroup.dogName,
       dogSelect: userDetailsFormGroup.dogSelect,
     });
-    if(userDetailsFormGroup.dogSelect.name === undefined) {
-      this.name = userDetailsFormGroup.dogSelect
-    }
-    else{
-      this.name = userDetailsFormGroup.dogSelect.name
+    if (userDetailsFormGroup.dogSelect.name === undefined) {
+      this.name = userDetailsFormGroup.dogSelect;
+    } else {
+      this.name = userDetailsFormGroup.dogSelect.name;
     }
   }
 
@@ -242,9 +251,9 @@ export class ModalDetailsFormComponent implements OnInit {
   patchCalendarFormGroup(calendarFormGroup: any): void {
     this.calendarFormGroup.patchValue({
       calendar: calendarFormGroup.calendar,
-      time: calendarFormGroup.time
-    })
-    this.model = calendarFormGroup.calendar
+      time: calendarFormGroup.time,
+    });
+    this.model = calendarFormGroup.calendar;
   }
 
   regenerateForm(): void {
