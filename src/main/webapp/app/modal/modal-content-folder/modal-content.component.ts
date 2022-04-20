@@ -1,7 +1,11 @@
 import { NONE_TYPE } from '@angular/compiler';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Registration } from 'app/account/register/register.model';
+import { User } from 'app/admin/user-management/user-management.model';
 import { ModalDetailsFormComponent } from '../modal-details-folder/modal-details-form/modal-details-form.component';
+import { Booking } from './booking.modal';
+import { MailService } from './mail.service';
 
 @Component({
   selector: 'jhi-modal-content',
@@ -32,7 +36,7 @@ export class ModalContentComponent implements OnInit{
   private childCopy: ModalDetailsFormComponent | undefined;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private mailService: MailService) {
     this.createForm();
     this.pagesFormGroup.statusChanges.subscribe(res => {
       this.pageNav = this.pagesFormGroup.get('page')?.value;
@@ -111,6 +115,14 @@ export class ModalContentComponent implements OnInit{
   }
 
   submitClicked(): void {
+    console.warn(this.personalForm);
+    const booking = new Booking();
+    booking.firstName = this.personalForm.value.firstName;
+    booking.email = this.personalForm.value.email;
+    booking.dogName = this.dogForm.value.dogName
+
+    this.mailService.sendMail(booking).subscribe();
+
     this.navDisabled = true;
     this.isReview = false;
     this.isSubmit = true;

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.web.rest;
 
+import com.mycompany.myapp.domain.Booking;
 import com.mycompany.myapp.domain.User;
 import com.mycompany.myapp.repository.UserRepository;
 import com.mycompany.myapp.security.SecurityUtils;
@@ -65,6 +66,13 @@ public class AccountResource {
         // mailService.sendActivationEmail(user);
     }
 
+    @PostMapping("/book-apt")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void bookUser(@Valid @RequestBody Booking booking) {
+        userService.bookUser(booking);
+        // mailService.sendActivationEmail(user);
+    }
+
     /**
      * {@code GET  /activate} : activate the registered user.
      *
@@ -79,17 +87,17 @@ public class AccountResource {
         }
     }
 
-    /**
-     * {@code GET  /authenticate} : check if the user is authenticated, and return its login.
-     *
-     * @param request the HTTP request.
-     * @return the login if the user is authenticated.
-     */
-    @GetMapping("/authenticate")
-    public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
-        return request.getRemoteUser();
-    }
+    // /**
+    //  * {@code GET  /authenticate} : check if the user is authenticated, and return its login.
+    //  *
+    //  * @param request the HTTP request.
+    //  * @return the login if the user is authenticated.
+    //  */
+    // @GetMapping("/authenticate")
+    // public String isAuthenticated(HttpServletRequest request) {
+    //     log.debug("REST request to check if the current user is authenticated");
+    //     return request.getRemoteUser();
+    // }
 
     /**
      * {@code GET  /account} : get the current user.

@@ -1,5 +1,6 @@
 package com.mycompany.myapp.service;
 
+import com.mycompany.myapp.domain.Booking;
 import com.mycompany.myapp.domain.User;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
@@ -91,6 +92,21 @@ public class MailService {
         String subject = messageSource.getMessage(titleKey, null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);
     }
+    
+    @Async
+    public void sendBookingEmailFromTemplate(Booking booking, String templateName, String titleKey) {
+        if (booking.getEmail() == null) {
+            log.debug("Email doesn't exist for user");
+            return;
+        }
+//        Locale locale = Locale.forLanguageTag(user.getLangKey());
+        Context context = new Context(Locale.ENGLISH);
+        context.setVariable("booking", booking);
+        context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
+        String content = templateEngine.process(templateName, context);
+        String subject = messageSource.getMessage(titleKey, null, Locale.ENGLISH);
+        sendEmail(booking.getEmail(), subject, content, false, true);
+    }
 
     @Async
     public void sendActivationEmail(User user) {
@@ -108,5 +124,11 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendBookingMail(Booking booking) {
+        log.debug("Sending Booking email to '{}'", booking.getEmail());
+        sendBookingEmailFromTemplate(booking, "mail/bookingEmail", "email.booking.title");
     }
 }
