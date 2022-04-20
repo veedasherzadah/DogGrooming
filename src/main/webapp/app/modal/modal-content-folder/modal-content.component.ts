@@ -115,11 +115,13 @@ export class ModalContentComponent implements OnInit{
   }
 
   submitClicked(): void {
-    console.warn(this.personalForm);
     const booking = new Booking();
     booking.firstName = this.personalForm.value.firstName;
     booking.email = this.personalForm.value.email;
     booking.dogName = this.dogForm.value.dogName
+    booking.service = this.serviceForm.value.service;
+    booking.date = this.dateSelected;
+    booking.time = this.scheduleForm.value.time;
 
     this.mailService.sendMail(booking).subscribe();
 

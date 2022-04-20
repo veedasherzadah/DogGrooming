@@ -5,6 +5,7 @@ export interface IBooking {
     email?: string;
     service?: string;
     date?: string;
+    time?: string;
   }
   
   export class Booking implements IBooking {
@@ -14,7 +15,8 @@ export interface IBooking {
       public dogName?: string,
       public email?: string,
       public service?: string,
-      public date?: string
+      public date?: string,
+      public time?: string
     ) {}
   }
   

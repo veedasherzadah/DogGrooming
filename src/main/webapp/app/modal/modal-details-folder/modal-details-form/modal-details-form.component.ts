@@ -37,23 +37,27 @@ export class ModalDetailsFormComponent implements OnInit {
   public keyword = 'name';
 
   Services: Array<any> = [
-    { label: 'Full Cut', bio: '$50.00 - 1 Hour', value: 'fullCut', desc: 'Typical shave leaving a 1/2 inch of hair or less.' },
+    { 
+      label: 'Full Cut', 
+      bio: '$50.00 - 1 Hour', 
+      value: 'Full Cut', 
+      desc: 'Typical shave leaving a 1/2 inch of hair or less.' },
     {
       label: 'Half Cut',
       bio: '$30.00 - 30 Minutes',
-      value: 'halfCut',
+      value: 'Half Cut',
       desc: 'Clippers and scissoring used to trim hair to 1/2 an inch or longer.',
     },
     {
       label: 'Bath',
       bio: '$40.00 - 30 Minutes',
-      value: 'bath',
+      value: 'Bath',
       desc: 'A full body bath with shampoo and hair drying.',
     },
     {
       label: 'Bath and Cut',
       bio: '$60.00 - 1 Hour',
-      value: 'bathCut',
+      value: 'Bath and Cut',
       desc: 'A full body bath followed by a Half Cut; trim hair to 1/2 an inch or longer.',
     },
   ];
