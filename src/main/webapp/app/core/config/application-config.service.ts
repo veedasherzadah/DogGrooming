@@ -21,8 +21,12 @@ export class ApplicationConfigService {
 
   getEndpointFor(api: string, microservice?: string): string {
     if (microservice) {
+      console.warn('in ms')
+      console.warn(`${this.endpointPrefix}services/${microservice}/${api}`)
       return `${this.endpointPrefix}services/${microservice}/${api}`;
     }
+    console.warn('not ms')
+    console.warn(`${this.endpointPrefix}${api}`)
     return `${this.endpointPrefix}${api}`;
   }
 }
