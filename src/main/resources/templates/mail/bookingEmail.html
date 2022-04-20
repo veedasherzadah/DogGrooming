@@ -10,13 +10,14 @@
     <p th:text="#{email.booking.text1(${booking.dogName})}">Thank you for booking your Grooming appointment for . Here are your booking details:</p>
     <p th:text="#{email.booking.text2(${booking.service})}">Service:</p>
     <p th:text="#{email.booking.text3(${booking.date}, ${booking.time})}">Date and Time:  at </p>
+    <p th:text="#{email.booking.text4}">Location: 123 Main St., Fairfax, VA, 22030</p>
 
     <p>
-        <p th:text="#{email.booking.text4}">Please call us at 1 (111)-111-1111 if you have any questions or need to change your appointment time.</p>
+        <p th:text="#{email.booking.text5}">Please call us at (703) 123-4567 if you have any questions or need to change your appointment time.</p>
     </p>
 
     <p>
-      <span th:text="#{email.booking.text5}">Regards, </span>
+      <span th:text="#{email.booking.text6}">Regards, </span>
       <br />
       <em th:text="#{email.signature}">DogGrooming Team.</em>
     </p>

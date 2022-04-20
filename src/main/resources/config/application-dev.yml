@@ -52,6 +52,7 @@ spring:
     port: 587
     username: doggroomingswe632@gmail.com
     password: doggrooming632
+    from: VCDogGrooming
     protocol: smtp
     tls: true
     properties.mail.smtp:
