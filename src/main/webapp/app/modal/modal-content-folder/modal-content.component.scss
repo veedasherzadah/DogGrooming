@@ -3,19 +3,32 @@
 }
 
 .nav {
-  padding-top:20px;
+  padding-top: 20px;
 }
 .continue-button {
   width: 216px;
   height: 55px;
   margin: 0 0 0 auto;
 }
+
+.continue-button:hover {
+  color: white;
+  background-color: #cf7a00;
+  // float:left;
+}
+
 .back-button {
   width: 216px;
   height: 55px;
   border-color: #cf7a00;
   color: #cf7a00;
   background-color: white;
+  // float:left;
+}
+
+.back-button:hover {
+  color: white;
+  background-color: #eec994;
   // float:left;
 }
 
