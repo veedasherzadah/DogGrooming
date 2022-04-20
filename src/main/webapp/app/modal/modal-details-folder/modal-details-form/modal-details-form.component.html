@@ -41,7 +41,7 @@
           class="alert alert-danger"
         >
           <div *ngIf="userDetailsFormGroup.controls['phone'].errors?.required;else format">Phone number is required.</div>
-          <ng-template #format>Invalid phone number pattern.</ng-template>
+          <ng-template #format>Invalid phone number length.</ng-template>
         </div>
       </div>
       <div class="col">
