@@ -38,23 +38,28 @@
 }
 
 
-::ng-deep .select-icon ::-webkit-input-placeholder {
-  padding-left:25px !important;
-}
-::ng-deep .select-icon :-moz-placeholder { /* Firefox 18- */
-  padding-left:25px !important;
-}
-::ng-deep .select-icon ::-moz-placeholder {  /* Firefox 19+ */
-  padding-left:25px !important;
-}
-::ng-deep .select-icon :-ms-input-placeholder {  
-  padding-left:25px !important;
-}
+// ::ng-deep .select-icon ::placeholder {
+//   padding-left:25px !important;
+// }
+
+
+// ::ng-deep .select-icon ::-webkit-input-placeholder {
+//   padding-left:25px !important;
+// }
+// ::ng-deep .select-icon :-moz-placeholder { /* Firefox 18- */
+//   padding-left:25px !important;
+// }
+// ::ng-deep .select-icon ::-moz-placeholder {  /* Firefox 19+ */
+//   padding-left:25px !important;
+// }
+// ::ng-deep .select-icon :-ms-input-placeholder {  
+//   padding-left:25px !important;
+// }
 ::ng-deep .select-icon .autocomplete-container .input-container input{
   // background-color: red !important ;
   background: url('images/magnifying_glass.svg') no-repeat !important;
   background-size: 20px 20px !important;
-  background-position: center left !important;
+  background-position: center right !important;
   background-origin: content-box !important;
   // padding-left:25px !important;
 }
