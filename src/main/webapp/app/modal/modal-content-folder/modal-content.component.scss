@@ -11,7 +11,14 @@
   margin: 0 0 0 auto;
 }
 
-.continue-button:hover {
+.continue-button:disabled,
+.continue-button[disabled] {
+  color: #666666;
+  background-color: #EEC994;
+  // float:left;
+}
+
+.continue-button:hover:enabled {
   color: white;
   background-color: #cf7a00;
   // float:left;
