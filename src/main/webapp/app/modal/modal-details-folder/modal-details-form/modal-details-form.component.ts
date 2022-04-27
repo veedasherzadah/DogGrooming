@@ -95,17 +95,9 @@ export class ModalDetailsFormComponent implements OnInit {
       if (this.servicesFormGroup.get('service')?.value !== '') {
         this.getButtonDisabled.emit(false);
       }
-      // const checkArray: FormArray = this.servicesFormGroup.get('checkArray') as FormArray;
-      // if(checkArray.length === 0){
-      //   this.getButtonDisabled.emit(true);
-      // }
-      // else {
-      //   this.getButtonDisabled.emit(false);
-      // }
       this.checkSubmitDisabled();
     });
     this.calendarFormGroup.statusChanges.subscribe(res => {
-      console.warn('getting calendar');
       if (this.calendarFormGroup.get('calendar')?.value !== undefined) {
         this.calendarValid = true;
       }
@@ -120,12 +112,10 @@ export class ModalDetailsFormComponent implements OnInit {
   ngOnInit(): void {
     this.getDogBreeds();
     // this.editClicked = false;
-    console.warn('in ngoninit');
     localStorage.clear();
   }
-
+  
   createForm(): void {
-    console.warn('got in createForm');
     this.userDetailsFormGroup = this.fb.group({
       email: new FormControl(null, {
         validators: [Validators.required, Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')],
@@ -152,6 +142,14 @@ export class ModalDetailsFormComponent implements OnInit {
       calendar: new FormControl(null, [Validators.required]),
       time: new FormControl('', [Validators.required]),
     });
+  }
+
+
+  selectEvent($event: any): void {
+    document.getElementById('select')!.className = 'select';
+  }
+  clearedEvent($event: any):void {
+    document.getElementById('select')!.classList.add('select-icon');
   }
 
   continueClicked(page: string): void {
@@ -196,15 +194,11 @@ export class ModalDetailsFormComponent implements OnInit {
     this.getButtonDisabled.emit(true);
 
     if (this.page === this.pages[0]) {
-      console.warn('in check continue 0')
-      console.warn(this.userDetailsFormGroup)
       if (this.userDetailsFormGroup.valid) {
         this.getButtonDisabled.emit(false);
       }
     }
     if (this.page === this.pages[1]) {
-      console.warn('in check continue 1')
-      console.warn(this.dogDetailsFormGroup)
       if (this.dogDetailsFormGroup.valid) {
         this.getButtonDisabled.emit(false);
       }

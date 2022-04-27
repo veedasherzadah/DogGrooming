@@ -116,7 +116,8 @@
         </div>
 
         <ng-autocomplete
-          class="select"
+          id="select"
+          class="select select-icon"
           #ngAutoCompleteStatic
           [data]="dogList"
           formControlName="dogSelect"
@@ -128,6 +129,8 @@
           notFoundText="Not found"
           [itemTemplate]="itemTemplateStatic"
           [notFoundTemplate]="notFoundTemplate"
+          (selected)='selectEvent($event)'
+          (inputCleared)="clearedEvent($event)"
         >
         </ng-autocomplete>
 
