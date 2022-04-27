@@ -37,10 +37,11 @@
         <div
           *ngIf="
             userDetailsFormGroup.controls['phone'].invalid &&
-            (userDetailsFormGroup.controls['phone'].dirty || userDetailsFormGroup.controls['phone'].touched)"
+            (userDetailsFormGroup.controls['phone'].dirty || userDetailsFormGroup.controls['phone'].touched)
+          "
           class="alert alert-danger"
         >
-          <div *ngIf="userDetailsFormGroup.controls['phone'].errors?.required;else format">Phone number is required.</div>
+          <div *ngIf="userDetailsFormGroup.controls['phone'].errors?.required; else format">Phone number is required.</div>
           <ng-template #format>Invalid phone number length.</ng-template>
         </div>
       </div>
