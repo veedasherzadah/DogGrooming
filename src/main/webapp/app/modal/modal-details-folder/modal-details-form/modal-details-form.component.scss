@@ -1,9 +1,9 @@
 .selected-date {
-  font-size:20px;
+  font-size: 20px;
   text-align: right;
-  padding-right:30%;
-  margin-top:-50px;
-  color:#3e8acc
+  padding-right: 30%;
+  margin-top: -50px;
+  color: #3e8acc;
 }
 .form-control {
   color: #3a3a3a;
@@ -15,11 +15,11 @@
 }
 
 .row {
-  padding-top:30px;
+  padding-top: 30px;
 }
 
 .detailsh2 {
-  padding-top:20px;
+  padding-top: 20px;
 }
 .alert-danger {
   margin-top: -27px;
@@ -45,7 +45,6 @@
   background-origin: content-box !important;
 }
 
-
 select:required:invalid {
   color: #c9c9c9;
 }
@@ -62,7 +61,6 @@ option {
   }
   span {
     display: block;
-    border: 1px solid #c4c4c4;
     text-align: left;
     padding: 18px;
     width: 100%;
@@ -70,7 +68,8 @@ option {
     font-size: 20px;
     font-weight: 500;
     color: #3a3a3a;
-    background-color: white;
+    background-color: rgb(252, 252, 252);
+    box-shadow: 0 2px 6px 0 lightgray;
     margin-bottom: 26px;
   }
   input {
@@ -114,9 +113,9 @@ h3 {
     display: inline-block;
     width: 185px;
     height: 50px;
-    background-color: white;
     color: #3a3a3a;
-    border: 1px solid #3a3a3a;
+    background-color: rgb(252, 252, 252);
+    box-shadow: 0 2px 6px 0 lightgray;
     margin: 0px 20px 20px 0px;
     font-size: 30px;
   }
