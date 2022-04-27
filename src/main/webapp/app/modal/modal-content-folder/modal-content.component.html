@@ -27,19 +27,26 @@
                       <div class="row">
                         <label>
                           <input type="radio" value="yourDetails" formControlName="page" />
-                          <span style="text-align: left"
-                            >Your Details <span style="font-size: 12px">Name </span><br />
-                            <span style="font-size: 12px">Phone </span><br />
-                            <span style="font-size: 12px">Email </span></span
-                          >
+                          <span style="text-align: left">
+                            Your Details
+                            <span *ngIf="pagesFormGroup.value.page=='yourDetails'" class="subNavTopics">
+                              <span style="font-size: 12px">Name </span><br />
+                              <span style="font-size: 12px">Phone </span><br />
+                              <span style="font-size: 12px">Email </span>
+                            </span>
+                          </span>
                         </label>
                       </div>
                       <div class="row">
                         <label>
                           <input type="radio" value="dogDetails" formControlName="page" />
-                          <span style="text-align: left"
-                            >Dog's Details <span style="font-size: 12px">Name </span><br />
-                            <span style="font-size: 12px">Breed </span></span
+                          <span style="text-align: left">
+                            Dog's Details 
+                            <span *ngIf="pagesFormGroup.value.page=='dogDetails'" class="subNavTopics">
+                              <span style="font-size: 12px">Name </span><br />
+                              <span style="font-size: 12px">Breed </span>
+                            </span>
+                          </span
                           >
                         </label>
                       </div>
@@ -160,7 +167,7 @@
         </div>
 
         <div *ngIf="!isReview" class="modal-footer">
-          <button *ngIf="pageNav != 'enterDetails' && !navDisabled && !isReview" class="modal-button back-button" (click)="backClicked()">
+          <button *ngIf="pageNav != 'yourDetails' && !navDisabled && !isReview" class="modal-button back-button" (click)="backClicked()">
             Back
           </button>
           <button
