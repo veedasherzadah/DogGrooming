@@ -29,7 +29,7 @@
                           <input type="radio" value="yourDetails" formControlName="page" />
                           <span style="text-align: left">
                             Your Details
-                            <span *ngIf="pagesFormGroup.value.page=='yourDetails'" class="subNavTopics">
+                            <span *ngIf="pagesFormGroup.value.page == 'yourDetails'" class="subNavTopics">
                               <span style="font-size: 12px">Name </span><br />
                               <span style="font-size: 12px">Phone </span><br />
                               <span style="font-size: 12px">Email </span>
@@ -41,13 +41,12 @@
                         <label>
                           <input type="radio" value="dogDetails" formControlName="page" />
                           <span style="text-align: left">
-                            Dog's Details 
-                            <span *ngIf="pagesFormGroup.value.page=='dogDetails'" class="subNavTopics">
+                            Dog's Details
+                            <span *ngIf="pagesFormGroup.value.page == 'dogDetails'" class="subNavTopics">
                               <span style="font-size: 12px">Name </span><br />
                               <span style="font-size: 12px">Breed </span>
                             </span>
-                          </span
-                          >
+                          </span>
                         </label>
                       </div>
                       <div class="row">
@@ -91,7 +90,7 @@
             </div>
 
             <div *ngIf="isReview && navDisabled" class="thank-you">
-              <h2 style="text-align: center; padding-top: 100px">Please Review Your Appointment</h2>
+              <h1 style="text-align: center; padding-top: 100px; font-weight: bold">Please Review Your Appointment</h1>
               <br />
               <h1 style="text-align: left; padding-top: 30px; padding-bottom: 30px">Booking Details:</h1>
               <div style="display: flex">
@@ -131,11 +130,11 @@
             </div>
 
             <div *ngIf="isSubmit && navDisabled" class="thank-you">
-              <h2 style="text-align: center">Appointment successfully booked!</h2>
+              <h1 style="text-align: center; font-weight: bold">Appointment successfully booked!</h1>
               <br />
               <p>We look forward to seeing you and your dog soon.</p>
               <br />
-              <div style="padding: 5%; border: 1px solid gray">
+              <div style="padding: 5%; background-color: rgb(252, 252, 252); box-shadow: 0 2px 6px 0 lightgray">
                 <h6>
                   Dog Name: <span style="color: gray">{{ dogForm.value.dogName }}</span>
                 </h6>
